@@ -1,0 +1,6 @@
+DELETE http://localhost:3000/Usuarios/2
+Content-Type: application/json
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6MiwiTm9tYnJlIjoiQW1pbiIsIlVzdWFyaW8iOiJBZG1pbiIsIlJvbCI6eyJJRCI6MSwiRGVzY3JpcGNpb24iOiJBZG1pbmlzdHJhZG9yIn0sIkFjdGl2byI6dHJ1ZSwiaWF0IjoxNjQyNjUxNjIxfQ.YdIKxOVSGKVispGWMs-rPibgUb4SNesgLwSUopjj7bI"
+}
