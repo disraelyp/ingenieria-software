@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { validateToken } from 'src/Utils/validateToken'
 import { Repository } from 'typeorm'
-import ClienteEntity from '../Entity/cliente-entity'
+import { ClienteEntity } from '../Entity/cliente-entity'
 
 const dotenv = require('dotenv')
 dotenv.config()
@@ -19,30 +19,23 @@ export class ClienteService {
     if(validateToken(cliente,  ['Administrador']) === false) {
       return { message: 'token missing or invalid', error: 401 }
     }
-
-    if (!cliente.cedula) {
+    if (!cliente.Cedula) {
       return { message: 'Ingrese la cedula del cliente', error: 401 }
     }
-
-    if (!cliente.nombre) {
+    if (!cliente.Nombre) {
       return { message: 'Ingrese el nombre del cliente', error: 401 }
     }
-
-    if (!cliente.direccion) {
-      return { message: 'Ingrese la direccion del cliente', error: 401 }
+    if (!cliente.Direccion) {
+      return { message: 'Ingrese la Direccion del cliente', error: 401 }
     }
-
-    if (!cliente.telefono1) {
-      return { message: 'Ingrese el telefono 1 del cliente', error: 401 }
-    }
-    if (!cliente.telefono2) {
-      return { message: 'Ingrese el telefono 2 del cliente', error: 401 }
+    if (!cliente.Telefono) {
+      return { message: 'Ingrese el telefono del cliente', error: 401 }
     }
 
     const clientes = await this.clienteRP.find()
 
-    const nickNames = clientes.map((cliente) => cliente.cedula)
-    if (nickNames.includes(cliente.cedula)) {
+    const nickNames = clientes.map((cliente) => cliente.Cedula)
+    if (nickNames.includes(cliente.Cedula)) {
       return {
         message: 'El cliente ingresano se encuentra disponible.',
         error: 401,
@@ -50,17 +43,16 @@ export class ClienteService {
     }
 
     const nuevocliente: any = {
-      cedula: cliente.cedula,
-      nombre: cliente.nombre,
-      direccion: cliente.direccion,
-      telefono1: cliente.telefono1,
-      telefono2: cliente.telefono2,
-      activo: true,
+      Cedula: cliente.Cedula,
+      Nombre: cliente.Nombre,
+      Direccion: cliente.Direccion,
+      Telefono: cliente.Telefono,
+      Activo: true,
     }
 
     await this.clienteRP.insert(nuevocliente)
     return (await this.clienteRP.find()).find(
-      (item) => item.cedula === cliente.cedula,
+      (item) => item.Cedula === cliente.Cedula,
     )
   }
 
@@ -68,25 +60,17 @@ export class ClienteService {
     if(validateToken(object, ['Administrador']) === false) {
       return { message: 'token missing or invalid', error: 401 }
     }
-
-    if (!object.cedula) {
+    if (!object.Cedula) {
       return { message: 'Ingrese la cedula del cliente', error: 401 }
     }
-
-    if (!object.nombre) {
+    if (!object.Nombre) {
       return { message: 'Ingrese el nombre del cliente', error: 401 }
     }
-
-    if (!object.direccion) {
+    if (!object.Direccion) {
       return { message: 'Ingrese la provincia del cliente', error: 401 }
     }
-
-    if (!object.telefono1) {
+    if (!object.Telefono) {
       return { message: 'Ingrese el telefono 1 del cliente', error: 401 }
-    }
-
-    if (!object.telefono2) {
-      return { message: 'Ingrese el telefono 2 del cliente', error: 401 }
     }
 
     const clientes = await this.clienteRP.find()
@@ -94,21 +78,16 @@ export class ClienteService {
     if (!cliente) {
       return { Message: 'Ingrese un ID valido', error: 401 }
     }
-
-    if (
-      clientes.find(
-        (cliente) => cliente.ID !== id && cliente.cedula === object.cedula,
-      )
-    ) {
-      return { message: 'Ingrese una cedula valida', error: 401 }
+    if (clientes.find((cliente) => cliente.ID !== id && cliente.Cedula === object.Cedula,)) {
+      return { message: 'Ingrese una Cedula valida', error: 401 }
     }
+
     const nuevocliente: any = {
-      cedula: cliente.cedula,
-      nombre: cliente.nombre,
-      direccion: cliente.direccion,
-      telefono1: cliente.telefono1,
-      telefono2: cliente.telefono2,
-      activo: true,
+      Cedula: cliente.Cedula,
+      Nombre: cliente.Nombre,
+      Direccion: cliente.Direccion,
+      Telefono: cliente.Telefono,
+      Activo: true,
     }
     await this.clienteRP.update(id, nuevocliente)
 
@@ -120,9 +99,8 @@ export class ClienteService {
       return { message: 'token missing or invalid', error: 401 }
     }
     const clientes = await this.clienteRP.find()
-    return  (clientes.map(cliente => ({ 'ID': cliente.ID,'Cedula':cliente.cedula ,'Nombre': cliente.nombre, 'Direccion': cliente.direccion, 'Telefono 1': cliente.telefono1, 'Telefono 2': cliente.telefono2, 'Activo': cliente.activo }))).filter(cliente => cliente.Activo)
+    return  (clientes.map(cliente => ({ 'ID': cliente.ID,'Cedula':cliente.Cedula ,'Nombre': cliente.Nombre, 'Direccion': cliente.Direccion, 'Telefono': cliente.Telefono, 'Activo': cliente.Activo }))).filter(cliente => cliente.Activo)
   }
-
   async deleteCliente(token: any, id:number){
     if(validateToken(token,  ['Administrador']) === false) {
       return { message: 'token missing or invalid', error: 401 }

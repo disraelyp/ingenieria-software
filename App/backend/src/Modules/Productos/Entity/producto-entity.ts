@@ -1,19 +1,31 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
-@Entity('cliente')
-export default class ProductoEntity {
+@Entity('producto')
+export class ProductoEntity {
   @PrimaryGeneratedColumn()
     ID: number
 
   @Column()
-    nombre: string
+    CodigoBarra: string
 
   @Column()
-    fechaCreacion: Date
+    Descripcion: string
 
   @Column()
-    categoria: string
+    FechaCreacion: Date
 
   @Column()
-    activo: boolean
+    FechaModificacion: Date
+
+  @Column()
+    Categoria: string
+
+  @Column()
+    Activo: boolean
 }
+
+// PRECIO
+// PRECIO 2
+// PRECIO 3
+// PRECIO 4
+// IMPUESTOS

@@ -12,15 +12,15 @@ export class ProveedorController {
     return this.proveedorServices.saveProveedor(proveedorModel)
   }
   @Get(':token')
-  getConductor(@Param() params): any {
+  getProveedores(@Param() params): any {
     return this.proveedorServices.findAll({ token: params.token })
   }
   @Put(':id')
-  updateProduct(@Body() token: any, @Body() proveedorModel: ProveedorModel, @Param() params,): any {
+  updateProveedor(@Body() proveedorModel: ProveedorModel, @Param() params,): any {
     return this.proveedorServices.updateProveedor(params.id, proveedorModel)
   }
   @Delete(':id')
-  deleteProducto(@Body() token: any, @Param() params): any {
+  deleteProveedore(@Body() token: any, @Param() params): any {
     return this.proveedorServices.deleteProveedor(token, params.id)
   }
 }

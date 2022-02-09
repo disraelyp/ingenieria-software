@@ -5,6 +5,15 @@ import { Connection } from 'typeorm'
 import { UsuariosModule } from '../Usuarios/usuarios.module'
 import { UsuarioEntity } from '../Usuarios/Entity/usuario-entity'
 
+import { ProductosModule } from '../Productos/productos.module'
+import { ProductoEntity } from '../Productos/Entity/producto-entity'
+
+import { ProveedorEntity } from '../Proveedores/Entity/proveedor-entity'
+import { ProveedoresModule } from '../Proveedores/proveedores.module'
+
+import { ClientesModule } from '../Clientes/clientes.module'
+import { ClienteEntity } from '../Clientes/Entity/cliente-entity'
+
 const dotenv = require('dotenv')
 dotenv.config()
 
@@ -18,10 +27,10 @@ dotenv.config()
       password: process.env.DB_PASS,
       database: process.env.DB_NAME,
       entities:[
-        UsuarioEntity
+        UsuarioEntity, ProductoEntity, ProveedorEntity, ClienteEntity
 			 ],
     }),
-    UsuariosModule
+    UsuariosModule, ProductosModule, ProveedoresModule, ClientesModule
   ]
 })
 export class DatabaseModule {
