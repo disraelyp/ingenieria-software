@@ -1,25 +1,22 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity('cliente')
-export default class ClienteEntity {
+export class ClienteEntity {
   @PrimaryGeneratedColumn()
     ID: number
 
   @Column()
-    cedula: string
+    Cedula: string
 
   @Column()
-    nombre: string
+    Nombre: string
 
   @Column()
-    direccion: string
+    Direccion: string
 
   @Column()
-    telefono1: string
+    Telefono: string
 
   @Column()
-    telefono2: string
-
-  @Column()
-    activo: boolean
+    Activo: boolean
 }

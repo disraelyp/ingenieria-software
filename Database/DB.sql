@@ -1,0 +1,53 @@
+create database ingenieriasoftware;
+use ingenieriasoftware;
+
+
+# ENTIDAD: USUARIO
+create table if not exists `usuario` (
+	`ID` int auto_increment not null comment 'Clave primaria',
+    `Nombre` varchar(50) not null comment 'Nombre del usuario',
+    `Usuario` varchar(50) not null comment 'Usuario para inicio de seccion',
+    `Password` varchar(255) not null comment 'Contraseña para inicio de seccion',
+    `Role` varchar(50) not null comment 'Rol del usuario',
+    `Activo` boolean not null comment 'Estado del usuario',
+    primary key (`ID`),
+    unique key `Usuario`(`Usuario`)
+) ENGINE=INNODB;
+
+# ENTIDAD: PROVEEDOR
+create table if not exists `proveedor` (
+	`ID` int auto_increment not null comment 'Clave primaria',
+	`RNC` varchar(50) not null comment 'Identificador propio de los proveedores',
+    `Nombre` varchar(50) not null comment 'Nombre del proveedor',
+    `Telefono` varchar(255) not null comment 'Telefono del proveedor',
+    `Direccion` varchar(255) not null comment 'Direccion del proveedor',
+    `Activo` boolean not null comment 'Estado del proveedor',
+    primary key(`ID`),
+    unique key `RNC`(`RNC`)
+) ENGINE=INNODB;
+
+# ENTIDAD: CLIENTE
+create table if not exists `cliente` (
+	`ID` int auto_increment not null comment 'Clave primaria',
+	`Cedula` varchar(50) null comment 'Identificador propio de los clientes',
+    `Nombre` varchar(50) not null comment 'Nombre del cliente',
+    `Telefono` varchar(255) not null comment 'Telefono del cliente',
+    `Direccion` varchar(255) not null comment 'Direccion del cliente',
+    `Activo` boolean not null comment 'Estado del cliente',
+    primary key(`ID`),
+    unique key `Cedula`(`Cedula`)
+) ENGINE=INNODB;
+
+
+# ENTIDAD: PRODUCTO
+create table if not exists `producto` (
+	`ID` int auto_increment not null comment 'Clave primaria',
+	`CodigoBarra` varchar(50) not null comment 'Identificador propio de los productos',
+    `Descripcion` varchar(50) not null comment 'Descripcion del producto',
+    `FechaCreacion` date not null comment 'Fecha creacion del producto',
+    `FechaModificacion` date not null comment 'Ultima fecha de modificacion del producto',
+    `Categoria` varchar(50) not null comment 'Categoria del producto',
+    `Activo` boolean not null comment 'Estado del producto',
+    primary key(`ID`),
+    unique key `CodigoBarra`(`CodigoBarra`)
+) ENGINE=INNODB;

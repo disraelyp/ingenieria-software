@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { validateToken } from 'src/Utils/validateToken'
 import { Repository } from 'typeorm'
-import ProveedorEntity from '../Entity/proveedor-entity'
+import { ProveedorEntity } from '../Entity/proveedor-entity'
 
 const dotenv = require('dotenv')
 dotenv.config()
@@ -15,131 +15,72 @@ export class ProveedorService {
   ) {}
 
   async saveProveedor(proveedor: any) {
-    // Donde dice administrador me imagino que también irán los supervisores
     if(validateToken(proveedor,  ['Administrador']) === false) {
       return { message: 'token missing or invalid', error: 401 }
     }
-
-    if (!proveedor.rnc) {
+    if (!proveedor.RNC) {
       return { message: 'Ingrese el rnc del proveedor', error: 401 }
     }
-
-    if (!proveedor.nombre) {
+    if (!proveedor.Nombre) {
       return { message: 'Ingrese el nombre del proveedor', error: 401 }
     }
-    if (!proveedor.telefono1) {
-      return { message: 'Ingrese el telefono 1 del proveedor', error: 401 }
+    if (!proveedor.Telefono) {
+      return { message: 'Ingrese el telefono del proveedor', error: 401 }
     }
-    if (!proveedor.telefono2) {
-      return { message: 'Ingrese el telefono 2 del proveedor', error: 401 }
+    if (!proveedor.Direccion) {
+      return { message: 'Ingrese la direccion del proveedor', error: 401 }
     }
-    if (!proveedor.provincia) {
-      return { message: 'Ingrese la provincia del proveedor', error: 401 }
-    }
-
-    if (!proveedor.municipio) {
-      return { mesage: 'Ingrese el municipio del proveedor', error: 401 }
-    }
-
-    if (!proveedor.sector) {
-      return { mesage: 'Ingrese el sector del proveedor', error: 401 }
-    }
-
-    if (!proveedor.calle) {
-      return { mesage: 'Ingrese la calle del proveedor', error: 401 }
-    }
-
     const proveedores = await this.proveedorRP.find()
-
-    const nickNames = proveedores.map((Proveedor) => Proveedor.rnc)
-    if (nickNames.includes(proveedor.rnc)) {
+    const RNCS = proveedores.map((Proveedor) => Proveedor.RNC)
+    if (RNCS.includes(proveedor.rnc)) {
       return {
-        message: 'El proveedor ingresano se encuentra disponible.',
+        message: 'El RNC ingresado no se encuentra disponible.',
         error: 401,
       }
     }
-
     const nuevoProveedor: any = {
-      rnc: proveedor.rnc,
-      nombre: proveedor.nombre,
-      telefono1: proveedor.telefono1,
-      telefono2: proveedor.telefono2,
-      provincia: proveedor.provincia,
-      municipio: proveedor.municipio,
-      sector: proveedor.sector,
-      calle: proveedor.calle,
+      RNC: proveedor.RNC,
+      Nombre: proveedor.Nombre,
+      Telefono: proveedor.Telefono,
+      Direccion: proveedor.Direccion,
       activo: true,
     }
-
     await this.proveedorRP.insert(nuevoProveedor)
-    return (await this.proveedorRP.find()).find(
-      (item) => item.rnc === proveedor.rnc,
-    )
+    return (await this.proveedorRP.find()).find((item) => item.RNC === proveedor.RNC, )
   }
 
   async updateProveedor(id: number, object: any) {
-    if(validateToken(object, ['Administrador']) === false) {
+    if(validateToken(object,  ['Administrador']) === false) {
       return { message: 'token missing or invalid', error: 401 }
     }
-
-    if (!object.rnc) {
+    if (!object.RNC) {
       return { message: 'Ingrese el rnc del proveedor', error: 401 }
     }
-
-    if (!object.nombre) {
+    if (!object.Nombre) {
       return { message: 'Ingrese el nombre del proveedor', error: 401 }
     }
-
-    if (!object.telefono1) {
-      return { message: 'Ingrese el telefono 1 del proveedor', error: 401 }
+    if (!object.Telefono) {
+      return { message: 'Ingrese el telefono del proveedor', error: 401 }
     }
-
-    if (!object.telefono2) {
-      return { message: 'Ingrese el telefono 2 del proveedor', error: 401 }
+    if (!object.Direccion) {
+      return { message: 'Ingrese la direccion del proveedor', error: 401 }
     }
-
-    if (!object.provincia) {
-      return { message: 'Ingrese la provincia del proveedor', error: 401 }
-    }
-
-    if (!object.municipio) {
-      return { mesage: 'Ingrese el municipio del proveedor', error: 401 }
-    }
-
-    if (!object.sector) {
-      return { mesage: 'Ingrese el sector del proveedor', error: 401 }
-    }
-
-    if (!object.calle) {
-      return { mesage: 'Ingrese la calle del proveedor', error: 401 }
-    }
-
     const proveedores = await this.proveedorRP.find()
     const proveedor = proveedores.find((proveedor) => proveedor.ID === id)
     if (!proveedor) {
       return { Message: 'Ingrese un ID valido', error: 401 }
     }
-
-    if (
-      proveedores.find(
-        (proveedor) => proveedor.ID !== id && proveedor.rnc === object.rnc,
-      )
-    ) {
-      return { message: 'Ingrese un rnc valido', error: 401 }
+    if (proveedores.find((proveedor) => proveedor.ID !== id && proveedor.RNC === object.RNC,)) {
+      return { message: 'Ingrese un RNC valido', error: 401 }
     }
     const nuevoProveedor: any = {
-      rnc: object.rnc,
-      nombre: object.nombre,
-      telefono1: object.telefono1,
-      telefono2: object.telefono2,
-      provincia: object.provincia,
-      municipio: object.municipio,
-      sector: object.sector,
-      calle: object.calle,
+      RNC: proveedor.RNC,
+      Nombre: proveedor.Nombre,
+      Telefono: proveedor.Telefono,
+      Direccion: proveedor.Direccion,
       activo: true,
     }
     await this.proveedorRP.update(id, nuevoProveedor)
-
     return (await this.proveedorRP.find()).find((item) => item.ID === id)
   }
 
@@ -148,7 +89,14 @@ export class ProveedorService {
       return { message: 'token missing or invalid', error: 401 }
     }
     const proveedores = await this.proveedorRP.find()
-    return  (proveedores.map(proveedor => ({ 'ID': proveedor.ID,'RNC':proveedor.rnc ,'Nombre': proveedor.nombre, 'Telefono 1': proveedor.telefono1, 'Telefono 2': proveedor.telefono2, 'Provincia': proveedor.provincia, 'Municipio': proveedor.municipio, 'Sector': proveedor.sector, 'Calle': proveedor.calle, 'Activo': proveedor.activo }))).filter(proveedor => proveedor.Activo)
+    return  (proveedores.map(proveedor => (
+      { 'ID': proveedor.ID,
+        'RNC':proveedor.RNC ,
+        'Nombre': proveedor.Nombre,
+        'Telefono': proveedor.Telefono,
+        'Direccion': proveedor.Direccion,
+        'Activo': proveedor.Activo
+      }))).filter(proveedor => proveedor.Activo)
   }
 
   async deleteProveedor(token: any, id:number){
