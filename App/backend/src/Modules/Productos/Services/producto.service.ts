@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { validateToken } from 'src/Utils/validateToken'
 import { Repository } from 'typeorm'
 import ProductoEntity from '../Entity/producto-entity'
-import { Categorias } from '../Enums/Categorias'
 
 const dotenv = require('dotenv')
 dotenv.config()
@@ -33,9 +32,10 @@ export class ProductoService {
       return { message: 'Ingrese la categoria del producto', error: 401 }
     }
 
-    if(![Categorias.Golosinas, Categorias.Lacteos].includes(producto.Categorias)){
-      return { message: 'Ingrese una categoria de producto valido', error: 401 }
+    if (!producto.origen) {
+      return { message: 'Ingrese el origen del producto', error: 401 }
     }
+
     const productos = await this.productoRP.find()
 
     const nickNames = productos.map((producto) => producto.ID)
@@ -50,6 +50,7 @@ export class ProductoService {
       nombre: producto.nombre,
       fechaCreacion: new Date(),
       categoria: producto.categoria,
+      origen: producto.origen,
       activo: true
     }
 
@@ -76,9 +77,10 @@ export class ProductoService {
       return { message: 'Ingrese la categoria del producto', error: 401 }
     }
 
-    if(![Categorias.Golosinas, Categorias.Lacteos].includes(object.Categorias)){
-      return { message: 'Ingrese una categoria de producto valido', error: 401 }
+    if (!object.origen) {
+      return { message: 'Ingrese el origen del producto', error: 401 }
     }
+
     const productos = await this.productoRP.find()
     const producto = productos.find((producto) => producto.ID === id)
     if (!producto) {
@@ -93,9 +95,10 @@ export class ProductoService {
       return { message: 'Ingrese un ID válido valida', error: 401 }
     }
     const nuevoProducto: any = {
-      nombre: producto.nombre,
+      nombre: object.nombre,
       fechaCreacion: new Date(),
-      categoria: producto.categoria,
+      categoria: object.categoria,
+      origen: object.origen,
       activo: true
     }
 
@@ -109,7 +112,7 @@ export class ProductoService {
       return { message: 'token missing or invalid', error: 401 }
     }
     const productos = await this.productoRP.find()
-    return  (productos.map(producto => ({ 'ID': producto.ID, 'Nombre': producto.nombre, 'Fecha Creacion': producto.fechaCreacion.toDateString(), 'Categoria': producto.categoria,  'Activo': producto.activo }))).filter(producto => producto.Activo)
+    return  (productos.map(producto => ({ 'ID': producto.ID, 'Nombre': producto.nombre, 'Fecha Creacion': producto.fechaCreacion.toDateString(), 'Categoria': producto.categoria,'Origen': producto.origen,  'Activo': producto.activo }))).filter(producto => producto.Activo)
   }
 
   async deleteProducto(token: any, id:number){
