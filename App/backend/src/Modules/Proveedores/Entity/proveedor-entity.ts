@@ -1,34 +1,22 @@
 import  { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity('proveedor')
-export default class ProveedorEntity {
+export class ProveedorEntity {
     @PrimaryGeneratedColumn()
       ID: number
 
     @Column()
-      rnc: string
+      RNC: string
 
     @Column()
-      nombre: string
+      Nombre: string
 
     @Column()
-      telefono1: string
+      Telefono: string
 
     @Column()
-      telefono2: string
+      Direccion: string
 
     @Column()
-      provincia: string
-
-    @Column()
-      municipio: string
-
-    @Column()
-      sector: string
-
-    @Column()
-      calle: string
-
-    @Column()
-      activo: boolean
+      Activo: boolean
 }

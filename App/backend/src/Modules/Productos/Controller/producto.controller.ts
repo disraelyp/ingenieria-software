@@ -8,15 +8,15 @@ export class ProductosController {
   constructor(private productosServices: ProductoService) {}
 
   @Post()
-  addProveedor(@Body() productosModel: ProductoModel): any {
+  addProducto(@Body() productosModel: ProductoModel): any {
     return this.productosServices.saveProducto(productosModel)
   }
   @Get(':token')
-  getConductor(@Param() params): any {
+  getProductos(@Param() params): any {
     return this.productosServices.findAll({ token: params.token })
   }
   @Put(':id')
-  updateProduct(@Body() token: any, @Body() productosModel: ProductoModel, @Param() params,): any {
+  updateProducto(@Body() productosModel: ProductoModel, @Param() params,): any {
     return this.productosServices.updateProducto(params.id, productosModel)
   }
   @Delete(':id')

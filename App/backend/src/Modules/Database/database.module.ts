@@ -5,17 +5,14 @@ import { Connection } from 'typeorm'
 import { UsuariosModule } from '../Usuarios/usuarios.module'
 import { UsuarioEntity } from '../Usuarios/Entity/usuario-entity'
 
-import PrecioEntity from '../Precios/Entity/precio-entity'
-import { PrecioModule } from '../Precios/precios.module'
-
-import ProductoEntity from '../Productos/Entity/producto-entity'
 import { ProductosModule } from '../Productos/productos.module'
+import { ProductoEntity } from '../Productos/Entity/producto-entity'
 
-import ClienteEntity from '../Clientes/Entity/cliente-entity'
-import { ClientesModule } from '../Clientes/clientes.module'
-
-import ProveedorEntity from '../Proveedores/Entity/proveedor-entity'
+import { ProveedorEntity } from '../Proveedores/Entity/proveedor-entity'
 import { ProveedoresModule } from '../Proveedores/proveedores.module'
+
+import { ClientesModule } from '../Clientes/clientes.module'
+import { ClienteEntity } from '../Clientes/Entity/cliente-entity'
 
 const dotenv = require('dotenv')
 dotenv.config()
@@ -30,10 +27,10 @@ dotenv.config()
       password: process.env.DB_PASS,
       database: process.env.DB_NAME,
       entities:[
-        UsuarioEntity, ProveedorEntity, ProductoEntity, PrecioEntity, ClienteEntity
+        UsuarioEntity, ProductoEntity, ProveedorEntity, ClienteEntity
 			 ],
     }),
-    UsuariosModule, ProveedoresModule, ProductosModule, PrecioModule,  ClientesModule
+    UsuariosModule, ProductosModule, ProveedoresModule, ClientesModule
   ]
 })
 export class DatabaseModule {

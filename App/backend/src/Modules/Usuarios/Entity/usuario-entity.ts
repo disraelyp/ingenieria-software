@@ -14,8 +14,8 @@ export class UsuarioEntity {
     @Column()
       Password: string
 
-      @Column()
-        Role: string
+    @Column()
+      Role: string
 
     @Column()
       Activo: boolean
