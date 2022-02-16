@@ -6,6 +6,5 @@ export interface ProductoModel {
     FechaCreacion: Date,
     FechaModificacion: Date,
     Categoria: string,
-    Origen: string,
-    Activo: boolean
+    Origen: string
 }

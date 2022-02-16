@@ -70,8 +70,7 @@ export class ProductoService {
       FechaModificacion: new Date(),
       Categoria: producto.Categoria,
       Cantidad: 0,
-      Origen: producto.Origen,
-      Activo: true,
+      Origen: producto.Origen
     }
 
     const productoIngresado = await this.productoRP.save(nuevoProducto)
@@ -101,8 +100,7 @@ export class ProductoService {
       FechaModificacion: producto.FechaModificacion,
       Cantidad: (producto.Cantidad + object.Cantidad),
       Categoria: producto.Categoria,
-      Origen: producto.Origen,
-      Activo: true,
+      Origen: producto.Origen
     }
 
     const productoModificado = await this.productoRP.update(id, produtoAlterado)
@@ -162,7 +160,7 @@ export class ProductoService {
 
     // ELIMINACION DE LOS PRECIOS PREVIOS
     for (let index = 0; index < producto.Precios.length; index++) {
-      console.log(await axios.delete('http://localhost:3001/Precios/'+producto.Precios[index].ID, { data: { 'token': object.token } }))
+      await axios.delete('http://localhost:3001/Precios/'+producto.Precios[index].ID, { data: { 'token': object.token } })
     }
 
     const produtoAlterado: any = {
@@ -172,8 +170,7 @@ export class ProductoService {
       FechaModificacion: new Date(),
       Cantidad: producto.Cantidad,
       Categoria: object.Categoria,
-      Origen: object.Origen,
-      Activo: true,
+      Origen: object.Origen
     }
 
     const productoModificado = await this.productoRP.update(id, produtoAlterado)
@@ -187,19 +184,19 @@ export class ProductoService {
     if(validateToken(token,  ['Administrador']) === false) {
       return { message: 'token missing or invalid', error: 401 }
     }
-    const productos = await this.productoRP.find({ relations: ['Precios'] })
-    return  productos.filter(producto => producto.Activo)
+    return  await this.productoRP.find({ relations: ['Precios'] })
   }
 
   async deleteProducto(token: any, id:number){
     if(validateToken(token,  ['Administrador']) === false) {
       return { message: 'token missing or invalid', error: 401 }
     }
-    const productos = await this.productoRP.find()
-    const producto = productos.find(producto => producto.ID === id)
+    const producto = await this.productoRP.findOne(id, { relations: ['Precios'] })
     if(producto){
-      const nuevoProducto = { ...producto, Activo: false }
-      await this.productoRP.update(id, nuevoProducto)
+      for (let index = 0; index < producto.Precios.length; index++) {
+        await axios.delete('http://localhost:3001/Precios/'+producto.Precios[index].ID, { data: { 'token': token } })
+      }
+      await this.productoRP.delete(id)
       return producto
     }
     return { Message: 'Ingrese un ID valido', error: 401 }

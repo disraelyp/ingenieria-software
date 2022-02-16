@@ -27,9 +27,6 @@ export class ProductoEntity {
   @Column()
     Origen: string
 
-  @Column()
-    Activo: boolean
-
   @OneToMany(() => PrecioEntity, precio => precio.Producto)
     Precios: PrecioEntity[]
 }
