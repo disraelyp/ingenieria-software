@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
 import { PrecioService } from './Services/precio.service'
-import PrecioEntity from './Entity/precio-entity'
+import { PrecioEntity } from './Entity/precio-entity'
 import { PrecioController } from './Controller/precio.controller'
 
 @Module({
@@ -10,7 +10,8 @@ import { PrecioController } from './Controller/precio.controller'
     TypeOrmModule.forFeature([PrecioEntity])
   ],
   controllers: [
-    PrecioController  ],
+    PrecioController
+  ],
   providers:[
     PrecioService
   ]

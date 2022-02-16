@@ -7,10 +7,11 @@ import { UsuariosModule } from './Modules/Usuarios/usuarios.module'
 import { ProveedoresModule } from './Modules/Proveedores/proveedores.module'
 import { ProductosModule } from './Modules/Productos/productos.module'
 import { ClientesModule } from './Modules/Clientes/clientes.module'
+import { PrecioModule } from './Modules/Precios/precios.module'
 
 @Module({
   imports: [
-    UsuariosModule, DatabaseModule, ProveedoresModule, ProductosModule, ClientesModule
+    UsuariosModule, DatabaseModule, ProveedoresModule, ProductosModule, ClientesModule, PrecioModule
   ],
   controllers: [AppController],
   providers: [AppService],

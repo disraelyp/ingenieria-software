@@ -1,17 +1,20 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
+import { ProductoEntity } from 'src/Modules/Productos/Entity/producto-entity'
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm'
 
 @Entity('precio')
-export default class PrecioEntity {
+export class PrecioEntity {
   @PrimaryGeneratedColumn()
     ID: number
+
   @Column()
-    ID_producto: number
+    Precio: number
+
   @Column()
-    precio: number
+    Impuesto: number
+
   @Column()
-    impuesto: number
-  @Column()
-    categpria: string
-  @Column()
-    activo: boolean
+    Categoria: string
+
+  @ManyToOne(() => ProductoEntity, producto => producto.Precios)
+    Producto: ProductoEntity
 }

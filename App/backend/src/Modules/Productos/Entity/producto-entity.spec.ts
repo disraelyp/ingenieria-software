@@ -1,4 +1,4 @@
-import ProductoEntity from './producto-entity'
+import { ProductoEntity } from './producto-entity'
 
 describe('ProductoEntity', () => {
   it('should be defined', () => {

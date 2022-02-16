@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
+import { PrecioEntity } from 'src/Modules/Precios/Entity/precio-entity'
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
 
 @Entity('producto')
 export class ProductoEntity {
@@ -12,27 +13,23 @@ export class ProductoEntity {
     Descripcion: string
 
   @Column()
+    Cantidad: number
+
+  @Column()
     FechaCreacion: Date
 
   @Column()
-<<<<<<< HEAD
-    origen: string
-
-  @Column()
-    activo: boolean
-=======
     FechaModificacion: Date
 
   @Column()
     Categoria: string
 
   @Column()
-    Activo: boolean
->>>>>>> e8b1dce96a4672e953bcbeffcffe50752eaac1f4
-}
+    Origen: string
 
-// PRECIO
-// PRECIO 2
-// PRECIO 3
-// PRECIO 4
-// IMPUESTOS
+  @Column()
+    Activo: boolean
+
+  @OneToMany(() => PrecioEntity, precio => precio.Producto)
+    Precios: PrecioEntity[]
+}

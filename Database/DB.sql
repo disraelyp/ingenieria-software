@@ -43,11 +43,25 @@ create table if not exists `cliente` (
 create table if not exists `producto` (
 	`ID` int auto_increment not null comment 'Clave primaria',
 	`CodigoBarra` varchar(50) not null comment 'Identificador propio de los productos',
+    `Cantidad` float not null comment 'Cantidad del producto',
     `Descripcion` varchar(50) not null comment 'Descripcion del producto',
     `FechaCreacion` date not null comment 'Fecha creacion del producto',
     `FechaModificacion` date not null comment 'Ultima fecha de modificacion del producto',
     `Categoria` varchar(50) not null comment 'Categoria del producto',
+    `Origen` varchar(50) not null comment 'Categoria del producto',
     `Activo` boolean not null comment 'Estado del producto',
     primary key(`ID`),
     unique key `CodigoBarra`(`CodigoBarra`)
 ) ENGINE=INNODB;
+
+
+# ENTIDAD: PRECIOS
+create table if not exists `precio` (
+    `ID` int auto_increment not null comment 'Clave primaria',
+    `productoID` int not null comment 'Relacion con el producto',
+    `Precio` float not null comment 'Precio del producto',
+    `Impuesto` float not null comment 'Impuestos del producto',
+    `Categoria` varchar(50) not null comment 'Categoria del producto',
+    primary key(`ID`),
+    foreign key (`productoID`) references `producto`(`ID`) on delete cascade
+)

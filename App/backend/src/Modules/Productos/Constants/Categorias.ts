@@ -8,3 +8,8 @@ export const Categorias: Array<string> = [
   'Bebidas Alcoholicas',
   'Bebidas no Alcoholicas'
 ]
+
+export const Origen: Array<string> = [
+  'Nacional',
+  'Importacion'
+]
