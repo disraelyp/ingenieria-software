@@ -4,7 +4,7 @@ export const verificarPrecio = (object: any): boolean => {
   if(!object.Precio || typeof object.Precio !== 'number') {
     return false
   }
-  if(!object.Impuesto || typeof object.Impuesto !== 'number') {
+  if(!object.hasOwnProperty('Impuesto') || typeof object.Impuesto !== 'number') {
     return false
   }
   if(!object.Categoria  || typeof object.Categoria !== 'string') {

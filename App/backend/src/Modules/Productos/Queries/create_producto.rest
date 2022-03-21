@@ -3,10 +3,11 @@ Content-Type: application/json
 
 {
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6MSwiTm9tYnJlIjoiTGVzbGllIiwiVXN1YXJpbyI6Imxlc2xpZSIsIlJvbGUiOiJBZG1pbmlzdHJhZG9yIiwiQWN0aXZvIjp0cnVlLCJpYXQiOjE2NDUwMjcwMzR9.2AW-l7m-ZXpk_1oFRXphAukyL4sk487SOxnq_6uNKoc",
-    "CodigoBarra": "aaaa",
+    "CodigoBarra": "bbbb",
     "Descripcion": "Producto de prueba",
     "Categoria": "Golosinas",
     "Origen": "Nacional",
+    "Costo": 100,
     "Precios": [
         {
             "Precio": 200, 

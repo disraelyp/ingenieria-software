@@ -24,7 +24,7 @@ export class PrecioService {
     if (!precio.Precio) {
       return { message: 'Ingrese el precio del producto', error: 401 }
     }
-    if (!precio.Impuesto) {
+    if (!precio.hasOwnProperty('Impuesto')) {
       return { message: 'Ingrese el impuesto del precio', error: 401 }
     }
     if (!precio.Categoria) {
@@ -44,7 +44,6 @@ export class PrecioService {
       return { message: 'token missing or invalid', error: 401 }
     }
     const precio = await this.precioRP.findOne(id)
-    console.log(precio)
     if(precio){
       await this.precioRP.delete(id)
     }

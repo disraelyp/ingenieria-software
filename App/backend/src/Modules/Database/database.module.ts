@@ -22,6 +22,13 @@ import { ClienteEntity } from '../Clientes/Entity/cliente-entity'
 import { PrecioModule } from '../Precios/precios.module'
 import { PrecioEntity } from '../Precios/Entity/precio-entity'
 
+// PRODUCTOS-PEDIDO
+import { ProductoPedidoModule } from '../ProductosPedido/producto-pedido.module'
+import { ProductoPedidoEntity } from '../ProductosPedido/Entity/producto-pedido.entity'
+
+import { PedidoModule } from '../Pedidos/pedido.module'
+import { PedidoEntity } from '../Pedidos/Entity/pedido.entity'
+
 const dotenv = require('dotenv')
 dotenv.config()
 
@@ -35,10 +42,10 @@ dotenv.config()
       password: process.env.DB_PASS,
       database: process.env.DB_NAME,
       entities:[
-        UsuarioEntity, ProductoEntity, ProveedorEntity, ClienteEntity, PrecioEntity
+        UsuarioEntity, ProductoEntity, ProveedorEntity, ClienteEntity, PrecioEntity, ProductoPedidoEntity, PedidoEntity
 			 ],
     }),
-    UsuariosModule, ProductosModule, ProveedoresModule, ClientesModule, PrecioModule
+    UsuariosModule, ProductosModule, ProveedoresModule, ClientesModule, PrecioModule, ProductoPedidoModule, PedidoModule
   ]
 })
 export class DatabaseModule {

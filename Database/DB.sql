@@ -49,6 +49,7 @@ create table if not exists `producto` (
     `FechaModificacion` date not null comment 'Ultima fecha de modificacion del producto',
     `Categoria` varchar(50) not null comment 'Categoria del producto',
     `Origen` varchar(50) not null comment 'Categoria del producto',
+    `Costo` varchar(50) not null comment 'Costo del producto',
     `Activo` boolean not null comment 'Estado del producto',
     primary key(`ID`),
     unique key `CodigoBarra`(`CodigoBarra`)
@@ -64,4 +65,28 @@ create table if not exists `precio` (
     `Categoria` varchar(50) not null comment 'Categoria del producto',
     primary key(`ID`),
     foreign key (`productoID`) references `producto`(`ID`) on delete cascade
-)
+) ENGINE=INNODB;
+
+# ENTIDAD: PEDIDO
+create table if not exists `pedido` (
+    `ID` int auto_increment not null comment 'Clave primaria',
+    `FechaCreacion` date not null comment 'Fecha creacion del pedido',
+    `FechaModificacion` date not null comment 'Ultima fecha de modificacion del pedido',
+    `Vendedor` varchar(50) not null comment 'Vendedor del pedido',
+    `clienteID` int not null comment 'Cliente del pedido', 
+    primary key(`ID`)
+) ENGINE=INNODB;
+
+# ENTIDAD: PRODUCTO-PEDIDO
+create table if not exists `producto-pedido` (
+    `ID` int auto_increment not null comment 'Clave primaria',
+    `CodigoBarra` varchar(50) not null comment 'Identificador propio de los producto-pedido',
+    `Descripcion` varchar(50) not null comment 'Descripcion del producto-pedido',
+    `Cantidad` float not null comment 'Cantidad del producto-pedido',
+    `Categoria` varchar(50) not null comment 'Razon del producto-pedido',
+    `productoID` int not null comment 'Relacion con el producto', 
+    `pedidoID` int not null comment 'Relacion con el producto',   
+    primary key(`ID`),
+    foreign key (`pedidoID`) references `pedido`(`ID`) on delete cascade,
+    foreign key (`productoID`) references `producto`(`ID`) on delete cascade
+) ENGINE=INNODB;

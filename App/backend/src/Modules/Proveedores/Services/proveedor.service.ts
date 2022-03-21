@@ -43,7 +43,7 @@ export class ProveedorService {
       Nombre: proveedor.Nombre,
       Telefono: proveedor.Telefono,
       Direccion: proveedor.Direccion,
-      activo: true,
+      Activo: true,
     }
     await this.proveedorRP.insert(nuevoProveedor)
     return (await this.proveedorRP.find()).find((item) => item.RNC === proveedor.RNC, )
@@ -78,7 +78,7 @@ export class ProveedorService {
       Nombre: proveedor.Nombre,
       Telefono: proveedor.Telefono,
       Direccion: proveedor.Direccion,
-      activo: true,
+      Activo: true,
     }
     await this.proveedorRP.update(id, nuevoProveedor)
     return (await this.proveedorRP.find()).find((item) => item.ID === id)

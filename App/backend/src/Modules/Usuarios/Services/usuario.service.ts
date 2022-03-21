@@ -19,7 +19,7 @@ export class UsuarioService {
 
   async saveUsuario(usuario:any){
     if(validateToken(usuario,  ['Administrador']) === false) {
-      return { message: 'token missing or invalid', error: 401 }
+      //return { message: 'token missing or invalid', error: 401 }
     }
     if(!usuario.Nombre) {
       return { message: 'Ingrese el nombre del usuario', error: 401 }

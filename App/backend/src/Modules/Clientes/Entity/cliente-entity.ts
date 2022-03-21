@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
+import { PedidoEntity } from 'src/Modules/Pedidos/Entity/pedido.entity'
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
 
 @Entity('cliente')
 export class ClienteEntity {
@@ -19,4 +20,8 @@ export class ClienteEntity {
 
   @Column()
     Activo: boolean
+
+
+  @OneToMany(() => PedidoEntity, clientePedido => clientePedido.Cliente)
+    Pedidos: PedidoEntity[]
 }

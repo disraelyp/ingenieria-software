@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { validateToken } from 'src/Utils/validateToken'
@@ -6,7 +5,7 @@ import { Repository } from 'typeorm'
 import { ProductoEntity } from '../Entity/producto-entity'
 import { Categorias, Origen } from '../Constants/Categorias'
 import { verificarPrecio } from 'src/Utils/verificarPrecio'
-import axios, { Axios } from 'axios'
+import axios from 'axios'
 
 const dotenv = require('dotenv')
 dotenv.config()
@@ -38,6 +37,9 @@ export class ProductoService {
     if (!producto.Origen || typeof producto.Origen !== 'string') {
       return { message: 'Ingrese el Origen del producto', error: 401 }
     }
+    if(!producto.Costo || typeof producto.Costo !== 'number') {
+      return { message: 'Ingrese un costo inicial', error: 401 }
+    }
 
     // VERIFICACION DE QUE EL CODIGO DE BARRA SEA UNICO
     const codigosBarras = (await this.productoRP.find()).map(producto => producto.CodigoBarra)
@@ -62,14 +64,15 @@ export class ProductoService {
       return { message: 'Ingrese una categoria de producto valido', error: 401 }
     }
 
-
     const nuevoProducto: any = {
       CodigoBarra: producto.CodigoBarra,
       Descripcion: producto.Descripcion,
       FechaCreacion: new Date(),
       FechaModificacion: new Date(),
       Categoria: producto.Categoria,
+      Costo: producto.Costo,
       Cantidad: 0,
+      Activo: true,
       Origen: producto.Origen
     }
 
@@ -103,7 +106,7 @@ export class ProductoService {
       Origen: producto.Origen
     }
 
-    const productoModificado = await this.productoRP.update(id, produtoAlterado)
+    await this.productoRP.update(id, produtoAlterado)
     return await this.productoRP.findOne(id, { relations: ['Precios'] })
   }
 
@@ -173,7 +176,7 @@ export class ProductoService {
       Origen: object.Origen
     }
 
-    const productoModificado = await this.productoRP.update(id, produtoAlterado)
+    await this.productoRP.update(id, produtoAlterado)
     for (let index = 0; index < object.Precios.length; index++) {
       await axios.post('http://localhost:3001/Precios', { ...object.Precios[index], token:  object.token, Producto: id })
     }
