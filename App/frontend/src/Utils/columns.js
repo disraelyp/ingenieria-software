@@ -12,6 +12,14 @@ export const ProductoColumns = [
   { field: 'Cantidad', headerName: 'Cantidad', minWidth: 50, flex: 1  },
   { field: 'Categoria', headerName: 'Categoria', minWidth: 100, flex: 1  },
   { field: 'Precio', headerName: 'Precio', minWidth: 100, flex: 1  },
+  { field: 'Costo', headerName: 'Costo', minWidth: 100, flex: 1  },
+]
+
+export const PedidosColumns = [
+  { field: 'Fecha', headerName: 'Fecha', width: 150 },
+  { field: 'Cliente', headerName: 'Cliente', minWidth: 100, flex: 1  },
+  { field: 'Vendedor', headerName: 'Vendedor', minWidth: 50, flex: 1  },
+  { field: 'Total', headerName: 'Total', minWidth: 100, flex: 1  },
 ]
 
 export const ProveedorColumns = [

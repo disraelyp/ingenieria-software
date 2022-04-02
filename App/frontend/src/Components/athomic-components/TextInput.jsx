@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import TextField from '@mui/material/TextField'
 import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
@@ -25,16 +24,5 @@ const TextInput = ({ label, type, value, onChange, error, onBlur, onFocus, disab
     </FormControl>
   )
 }
-
-TextInput.propTypes = {
-  onChange: PropTypes.func.isRequired,
-  onBlur: PropTypes.func.isRequired,
-  onFocus: PropTypes.func.isRequired,
-  label: PropTypes.string.isRequired,
-  errorMessage: PropTypes.string,
-  error: PropTypes.bool,
-  disable: PropTypes.bool
-}
-
 
 export default TextInput

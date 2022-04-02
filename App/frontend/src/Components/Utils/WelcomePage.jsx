@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom'
 import { initializeProductos } from './../../Reducers/productosReducer'
 import { initializeProveedores } from './../../Reducers/proveedoresReducer'
 import { initializeClientes } from './../../Reducers/clientesReducer'
+import { initializePedidos } from '../../Reducers/pedidosReducer'
 
 const WelcomePage = () => {
 
@@ -16,6 +17,7 @@ const WelcomePage = () => {
   useEffect(() => {
     dispatch(initializeUsuarios())
     dispatch(initializeProductos())
+    dispatch(initializePedidos())
     dispatch(initializeProveedores())
     dispatch(initializeClientes())
     setTimeout(() => history.push('/'), 500)

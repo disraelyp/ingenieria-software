@@ -16,6 +16,7 @@ import useSwitch from './../../../Hooks/useSwitch'
 import productoservices from './../../../Services/producto'
 import { initializeProductos } from './../../../Reducers/productosReducer'
 import { createNotification } from './../../../Reducers/notificacionesReducer'
+import { oneLine } from '../../../Styles/breakPoints'
 
 const ProductoUpdate = () => {
 
@@ -39,6 +40,7 @@ const ProductoUpdate = () => {
   const Precio2 = useField('number', producto.Precios[1].Precio, precioValidate)
   const Precio3 = useField('number', producto.Precios[2].Precio, precioValidate)
   const Precio4 = useField('number', producto.Precios[3].Precio, precioValidate)
+  const Costo = useField('number', producto.Costo, precioValidate)
 
   const createErrorMessage = (message) => {
     switch (true) {
@@ -54,17 +56,14 @@ const ProductoUpdate = () => {
     case message.includes('origen'):
       Origen.functions.createError(message)
       break
-    case Precio1.includes('precio'):
-      Precio1.functions.createError(message)
+    case message.includes('costo'):
+      Costo.functions.createError(message)
       break
-    case Precio2.includes('precio'):
+    case message.includes('precio'):
       Precio1.functions.createError(message)
-      break
-    case Precio3.includes('precio'):
-      Precio1.functions.createError(message)
-      break
-    case Precio4.includes('precio'):
-      Precio1.functions.createError(message)
+      Precio2.functions.createError(message)
+      Precio3.functions.createError(message)
+      Precio4.functions.createError(message)
       break
     default:
       break
@@ -77,6 +76,7 @@ const ProductoUpdate = () => {
       'CodigoBarra': CodigoBarra.form.value,
       'Descripcion': Descripcion.form.value,
       'Categoria': categoriaProducto.find(item => item.value === Categoria.form.value).label,
+      'Costo': parseInt(Costo.form.value),
       'Origen': origenProducto.find(item => item.value === Origen.form.value).label,
       'Precios': [
         {
@@ -106,7 +106,7 @@ const ProductoUpdate = () => {
       createErrorMessage(producto.data.message)
     } else {
       dispatch(createNotification('¡Producto creado correctamente!', 'Información'))
-      history.push('/Inventario')
+      history.push('/Inventario/Productos')
     }
   }
 
@@ -118,19 +118,35 @@ const ProductoUpdate = () => {
     Descripcion.functions.validate()
     Categoria.functions.validate()
     Origen.functions.validate()
+    Costo.functions.validate()
     Precio1.functions.validate()
     Precio2.functions.validate()
     Precio3.functions.validate()
     Precio4.functions.validate()
   }
 
-  const isValidate = () => {
-    if (hasImpuestos.checked) {
-      return Impuestos.functions.isValidate() && CodigoBarra.functions.isValidate() && Descripcion.functions.isValidate() && Categoria.functions.isValidate() && Origen.functions.isValidate() && Precio1.functions.isValidate() && Precio2.functions.isValidate() && Precio3.functions.isValidate() && Precio4.functions.isValidate()
+  const porcentaje = (precio, costo) => {
+
+    if(costo === precio) {
+      return '% 0'
+    } else if (precio === 0 && costo !== 0){
+      return '-%100'
+    } else if (costo === 0 && precio !== 0){
+      return '%100'
+    } else if (precio>costo && costo!==0) {
+      return '-%'+ (precio/costo)*100
+    } else if (costo>precio && precio!==0) {
+      return '%'+ (costo/precio)*100
     }
-    return CodigoBarra.functions.isValidate() && Descripcion.functions.isValidate() && Categoria.functions.isValidate() && Origen.functions.isValidate() && Precio1.functions.isValidate() && Precio2.functions.isValidate() && Precio3.functions.isValidate() && Precio4.functions.isValidate()
+
   }
 
+  const isValidate = () => {
+    if (hasImpuestos.checked) {
+      return Costo.functions.isValidate() && Impuestos.functions.isValidate() && CodigoBarra.functions.isValidate() && Descripcion.functions.isValidate() && Categoria.functions.isValidate() && Origen.functions.isValidate() && Precio1.functions.isValidate() && Precio2.functions.isValidate() && Precio3.functions.isValidate() && Precio4.functions.isValidate()
+    }
+    return Costo.functions.isValidate() && CodigoBarra.functions.isValidate() && Descripcion.functions.isValidate() && Categoria.functions.isValidate() && Origen.functions.isValidate() && Precio1.functions.isValidate() && Precio2.functions.isValidate() && Precio3.functions.isValidate() && Precio4.functions.isValidate()
+  }
   return (
     <form onSubmit={onSubmit}>
       <Grid sx={{ width: '100%' }} container spacing={0} direction='column' alignItems='center' justifyContent='center'>
@@ -142,13 +158,26 @@ const ProductoUpdate = () => {
           <SelectInput moreSx={inputForm()}  { ...Origen.form } options={origenProducto} label={'Origen'} text={'Seleccione un origen'} />
           <SelectInput moreSx={inputForm()}  { ...Categoria.form } options={categoriaProducto} label={'Categoria'} text={'Seleccione una categoria'} />
         </Grid>
+
+        <Grid item xs={12} sx={itemForm()}>
+          <TextInput moreSx={oneLine} { ...Costo.form } label={'Costo)'} />
+        </Grid>
+
         <Grid item xs={12} sx={itemForm()}>
           <TextInput moreSx={inputForm()} { ...Precio1.form } label={'Precio (1)'} />
+          <TextInput moreSx={inputForm()} disable={true} value={porcentaje(Precio1.form.value, Costo.form.value)} label={''} />
+        </Grid>
+        <Grid item xs={12} sx={itemForm()}>
           <TextInput moreSx={inputForm()} { ...Precio2.form } label={'Precio (2)'} />
+          <TextInput moreSx={inputForm()} disable={true} value={porcentaje(Precio2.form.value, Costo.form.value)} label={''} />
         </Grid>
         <Grid item xs={12} sx={itemForm()}>
           <TextInput moreSx={inputForm()} { ...Precio3.form } label={'Precio (3)'} />
+          <TextInput moreSx={inputForm()} disable={true} value={porcentaje(Precio3.form.value, Costo.form.value)} label={''} />
+        </Grid>
+        <Grid item xs={12} sx={itemForm()}>
           <TextInput moreSx={inputForm()} { ...Precio4.form } label={'Precio (4)'} />
+          <TextInput moreSx={inputForm()} disable={true} value={porcentaje(Precio4.form.value, Costo.form.value)} label={''} />
         </Grid>
 
         <Grid item xs={12} sx={itemForm()}>
@@ -158,10 +187,10 @@ const ProductoUpdate = () => {
 
         <Grid item xs={12} sx={itemForm()}>
           {isValidate() ?
-            <Button moreSx={inputForm()} color={'success'} text={'Actualizar producto'} submit={true} />:
-            <Button moreSx={inputForm()} color={'success'} text={'Actualizar producto'} onClick={() => validate()} />
+            <Button moreSx={inputForm()} color={'success'} text={'Modificar producto'} submit={true} />:
+            <Button moreSx={inputForm()} color={'success'} text={'Modificar producto'} onClick={() => validate()} />
           }
-          <Button moreSx={inputForm()} onClick={() => history.push('/Inventario')} color={'error'} text={'Salir'} />
+          <Button moreSx={inputForm()} onClick={() => history.push('/Inventario/Productos')} color={'error'} text={'Salir'} />
         </Grid>
       </Grid>
     </form>

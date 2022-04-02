@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { updateTitulo } from './../../../Reducers/tituloReducer'
-import useField from './../../../Hooks/useField'
+import { updateTitulo } from '../../../Reducers/tituloReducer'
+import useField from '../../../Hooks/useField'
 
 import { PedidoCreateColumns } from '../../../Utils/columns'
 import { DataGrid } from '@mui/x-data-grid'
@@ -141,7 +141,7 @@ const ProductoPanel = ({ agregarFila, modificarFila, deleteRow, rows }) => {
   )
 }
 
-const PedidoCreate = () => {
+const PlantillaCreate = () => {
 
   const dispatch = useDispatch()
 
@@ -199,4 +199,4 @@ const PedidoCreate = () => {
   )
 }
 
-export default PedidoCreate
+export default PlantillaCreate

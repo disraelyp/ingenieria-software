@@ -19,7 +19,8 @@ import { Producto, Productos, ProductoCreate, ProductoUpdate } from './Component
 import { Proveedor, Proveedores, ProveedorCreate, ProveedorUpdate } from './Components/Modules/Proveedores'
 import { Usuario, Usuarios, UsuarioCreate, UsuarioUpdate } from './Components/Modules/Usuarios'
 
-import { PedidoCreate } from './Components/Modules/Pedidos'
+import { Pedidos, PedidoCreate } from './Components/Modules/Pedidos'
+import { initializePedidos } from './Reducers/pedidosReducer'
 
 const App = (props) => {
 
@@ -31,6 +32,7 @@ const App = (props) => {
   useEffect(() => {
     dispatch(initializeUsuarios())
     dispatch(initializeProductos())
+    dispatch(initializePedidos())
     dispatch(initializeProveedores())
     dispatch(initializeClientes())
     const user = storage.loadUser()
@@ -97,16 +99,16 @@ const App = (props) => {
             </Route>
 
 
-            <Route exact path='/Productos'>
+            <Route exact path='/Inventario/Productos'>
               <Productos />
             </Route>
-            <Route exact path='/Productos/Crear'>
+            <Route exact path='/Inventario/Productos/Crear'>
               <ProductoCreate />
             </Route>
-            <Route exact path='/Productos/Ver/:id'>
+            <Route exact path='/Inventario/Productos/Ver/:id'>
               <Producto />
             </Route>
-            <Route exact path='/Productos/Editar/:id'>
+            <Route exact path='/Inventario/Productos/Editar/:id'>
               <ProductoUpdate />
             </Route>
 
@@ -136,12 +138,12 @@ const App = (props) => {
               <UsuarioUpdate />
             </Route>
 
-
-            <Route exact path='/Pedidos/Crear'>
+            <Route exact path='/Facturacion/Pedidos/Crear'>
               <PedidoCreate />
             </Route>
-
-
+            <Route exact path='/Facturacion/Pedidos'>
+              <Pedidos />
+            </Route>
           </Switch>
         </Box>
       </Box>

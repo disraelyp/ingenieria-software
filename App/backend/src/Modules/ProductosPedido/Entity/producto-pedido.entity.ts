@@ -8,6 +8,9 @@ export class ProductoPedidoEntity {
     ID: number
 
   @Column()
+    FechaCreacion: Date
+
+  @Column()
     CodigoBarra: string
 
   @Column()
@@ -17,7 +20,13 @@ export class ProductoPedidoEntity {
     Cantidad: number
 
   @Column()
-    Categoria: string
+    Costo: number
+
+  @Column()
+    Precio: number
+
+  @Column()
+    Impuesto: number
 
   @ManyToOne(() => PedidoEntity, pedido => pedido.Productos)
     Pedido: PedidoEntity

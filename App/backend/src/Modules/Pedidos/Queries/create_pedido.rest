@@ -8,12 +8,12 @@ Content-Type: application/json
     "Productos": [
         {
             "Producto": 1,
-            "Cantidad": 10,
+            "Cantidad": 100,
             "Categoria": "Precio 1"
         },
         {
             "Producto": 2,
-            "Cantidad": 10,
+            "Cantidad": 100,
             "Categoria": "Precio 3"
         }
     ]

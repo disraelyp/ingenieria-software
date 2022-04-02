@@ -3,29 +3,29 @@ Content-Type: application/json
 
 {
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6MSwiTm9tYnJlIjoiTGVzbGllIiwiVXN1YXJpbyI6Imxlc2xpZSIsIlJvbGUiOiJBZG1pbmlzdHJhZG9yIiwiQWN0aXZvIjp0cnVlLCJpYXQiOjE2NDUwMjcwMzR9.2AW-l7m-ZXpk_1oFRXphAukyL4sk487SOxnq_6uNKoc",
-    "CodigoBarra": "bbbb",
-    "Descripcion": "Producto de prueba",
+    "CodigoBarra": "bbfbb2",
+    "Descripcion": "Producto de prueba 2",
     "Categoria": "Golosinas",
     "Origen": "Nacional",
-    "Costo": 100,
+    "Costo": 1000,
     "Precios": [
         {
-            "Precio": 200, 
+            "Precio": 2000, 
             "Categoria": "Precio 1", 
             "Impuesto": 100
         }, 
         {
-            "Precio": 200, 
+            "Precio": 2000, 
             "Categoria": "Precio 2", 
             "Impuesto": 100
         },
         {
-            "Precio": 200, 
+            "Precio": 2000, 
             "Categoria": "Precio 3", 
             "Impuesto": 100
         },
         {
-            "Precio": 200, 
+            "Precio": 2000, 
             "Categoria": "Precio 4", 
             "Impuesto": 100
         }

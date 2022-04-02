@@ -4,7 +4,6 @@ import axios from 'axios'
 import { validateToken } from 'src/Utils/validateToken'
 import { Repository } from 'typeorm'
 import { ProductoPedidoEntity } from '../Entity/producto-pedido.entity'
-import { Categorias } from 'src/Modules/Precios/Constants/Categoria'
 
 const dotenv = require('dotenv')
 dotenv.config()
@@ -20,31 +19,36 @@ export class ProductoPedidoService {
     if(validateToken(productoPedido,  ['Administrador']) === false) {
       return { message: 'token missing or invalid', error: 401 }
     }
-    if (!productoPedido.Producto) {
+    if (!productoPedido.Producto || typeof productoPedido.Producto  !== 'number') {
       return { message: 'Ingrese el codigo de producto', error: 401 }
     }
-    if (!productoPedido.Cantidad) {
+    if (!productoPedido.Cantidad || typeof productoPedido.Cantidad !== 'number') {
       return { message: 'Ingrese la cantidad del producto', error: 401 }
     }
-    if (!productoPedido.Categoria) {
-      return { message: 'Ingrese la categoria del producto', error: 401 }
-    }
-    if (!productoPedido.Pedido) {
+    if (!productoPedido.Pedido || typeof productoPedido.Pedido !== 'number') {
       return { message: 'Ingrese el pedido del producto', error: 401 }
     }
-    if(!Categorias.includes(productoPedido.Categoria)) {
-      return { message: 'Ingrese una categoria de precio valida', error: 401 }
+
+    if (!productoPedido.hasOwnProperty('Precio') || typeof productoPedido.Precio  !== 'number') {
+      return { message: 'Ingrese el precio de producto', error: 401 }
     }
+    if(!productoPedido.hasOwnProperty('Impuesto') || typeof productoPedido.Impuesto !== 'number') {
+      return { message: 'Ingrese el impuesto del producto', error: 401 }
+    }
+
 
     const productos = (await axios.get('http://localhost:3001/Productos/'+productoPedido.token)).data
     const producto = productos.find(producto => producto.ID === productoPedido.Producto)
 
     const nuevoProductoPedido = {
+      FechaCreacion: new Date(),
       CodigoBarra: producto.CodigoBarra,
       Descripcion: producto.Descripcion,
       Cantidad: productoPedido.Cantidad,
+      Costo: productoPedido.Costo,
+      Precio: productoPedido.Precio,
+      Impuesto: productoPedido.Impuesto,
       Pedido: productoPedido.Pedido,
-      Categoria: productoPedido.Categoria,
       Producto: productoPedido.Producto,
     }
     return await this.productosVendidosRP.insert(nuevoProductoPedido)

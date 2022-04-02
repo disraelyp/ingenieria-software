@@ -3,4 +3,7 @@ export default interface PedidoModel {
     FechaCreacion: Date,
     FechaModificacion: Date,
     Vendedor: string,
+    Estado: string,
+    Cliente: number,
+    Pagado: boolean
 }

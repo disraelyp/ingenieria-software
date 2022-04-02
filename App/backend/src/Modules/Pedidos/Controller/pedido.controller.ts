@@ -8,12 +8,12 @@ export class PedidoController {
   constructor(private pedidoService: PedidoService) {}
 
   @Post()
-  addPrecio(@Body() precioModel: PedidoModel): any {
+  addPedidos(@Body() precioModel: PedidoModel): any {
     return this.pedidoService.savePedido(precioModel)
   }
 
   @Get(':token')
-  getClientes(@Param() params): any {
+  getPedidos(@Param() params): any {
     return this.pedidoService.findAll({ 'token': params.token })
   }
 

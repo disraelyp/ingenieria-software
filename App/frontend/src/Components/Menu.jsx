@@ -89,15 +89,15 @@ const Menu = () => {
   }
 
   const Facturacion = [
-    { ID: 1, Text: 'Pedidos', Icon: <ShoppingCartCheckoutIcon />, Link: '/Pedidos' },
-    { ID: 2, Text: 'Facturas', Icon: <ShoppingBasketIcon />, Link: '/Facturas' },
-    { ID: 3, Text: 'Devoluciones', Icon: <MoneyOffIcon />, Link: '/Devoluciones' },
+    { ID: 1, Text: 'Pedidos', Icon: <ShoppingCartCheckoutIcon />, Link: '/Facturacion/Pedidos' },
+    { ID: 2, Text: 'Facturas', Icon: <ShoppingBasketIcon />, Link: '/Facturacion/Facturas' },
+    { ID: 3, Text: 'Devoluciones', Icon: <MoneyOffIcon />, Link: '/Facturacion/Devoluciones' },
   ]
 
   const Inventario = [
-    { ID: 1, Text: 'Productos', Icon: <InventoryIcon />, Link: '/Productos' },
-    { ID: 2, Text: 'Ordenes de Compras', Icon: <ReceiptLongIcon />, Link: '/Ordenes' },
-    { ID: 3, Text: 'Notas de creditos', Icon: <AttachMoneyIcon />, Link: '/Notas' },
+    { ID: 1, Text: 'Productos', Icon: <InventoryIcon />, Link: '/Inventario/Productos' },
+    { ID: 2, Text: 'Ordenes de Compras', Icon: <ReceiptLongIcon />, Link: '/Inventario/Ordenes' },
+    { ID: 3, Text: 'Notas de creditos', Icon: <AttachMoneyIcon />, Link: '/Inventario/Notas' },
   ]
 
   const Reportes = [

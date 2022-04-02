@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom'
@@ -33,8 +32,10 @@ const Producto = () => {
   const Precio2 = useField('number', producto.Precios[1].Precio + producto.Precios[1].Impuesto, precioValidate)
   const Precio3 = useField('number', producto.Precios[2].Precio + producto.Precios[2].Impuesto, precioValidate)
   const Precio4 = useField('number', producto.Precios[3].Precio + producto.Precios[3].Impuesto, precioValidate)
+  const Costo = useField('number', producto.Costo, precioValidate)
 
   return (
+
     <Grid sx={{ width: '100%' }} container spacing={0} direction='column' alignItems='center' justifyContent='center'>
       <Grid item xs={12} sx={itemForm()}>
         <TextInput disable={true} moreSx={inputForm()} { ...CodigoBarra.form } label={'Codigo Barra'} />
@@ -44,6 +45,11 @@ const Producto = () => {
         <SelectInput disable={true} moreSx={inputForm()}  { ...Origen.form } options={origenProducto} label={'Origen'} text={'Seleccione un origen'} />
         <SelectInput disable={true} moreSx={inputForm()}  { ...Categoria.form } options={categoriaProducto} label={'Categoria'} text={'Seleccione una categoria'} />
       </Grid>
+
+      <Grid item xs={12} sx={itemForm()}>
+        <TextInput disable={true} moreSx={oneLine} { ...Costo.form } label={'Costo)'} />
+      </Grid>
+
       <Grid item xs={12} sx={itemForm()}>
         <TextInput disable={true} moreSx={inputForm()} { ...Precio1.form } label={'Precio (1)'} />
         <TextInput disable={true} moreSx={inputForm()} { ...Precio2.form } label={'Precio (2)'} />
@@ -52,8 +58,9 @@ const Producto = () => {
         <TextInput disable={true} moreSx={inputForm()} { ...Precio3.form } label={'Precio (3)'} />
         <TextInput disable={true} moreSx={inputForm()} { ...Precio4.form } label={'Precio (4)'} />
       </Grid>
+
       <Grid item xs={12} sx={itemForm()}>
-        <Button moreSx={oneLine} onClick={() => history.push('/Inventario')} color={'error'} text={'Salir'} />
+        <Button moreSx={oneLine} onClick={() => history.push('/Inventario/Productos')} color={'error'} text={'Salir'} />
       </Grid>
     </Grid>
   )

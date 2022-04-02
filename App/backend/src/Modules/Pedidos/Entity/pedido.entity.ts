@@ -16,6 +16,12 @@ export class PedidoEntity {
     @Column()
       Vendedor: string
 
+    @Column()
+      Estado: string
+
+    @Column()
+      Pagado: boolean
+
     @ManyToOne(() => ClienteEntity, clientePedido => clientePedido.Pedidos)
       Cliente: ClienteEntity[]
 

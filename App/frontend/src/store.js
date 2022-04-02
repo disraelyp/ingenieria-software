@@ -7,6 +7,7 @@ import notificacionReducer from './Reducers/notificacionesReducer'
 import usuarioReducer from './Reducers/usuariosReducer'
 import tituloReducer from './Reducers/tituloReducer'
 import productosReducer from './Reducers/productosReducer'
+import pedidosReducer from './Reducers/pedidosReducer'
 import proveedoresReducer from './Reducers/proveedoresReducer'
 import clientesReducer from './Reducers/clientesReducer'
 
@@ -14,6 +15,7 @@ const reducer = combineReducers({
   user: loginReducer,
   notificaciones: notificacionReducer,
   productos: productosReducer,
+  pedidos: pedidosReducer,
   proveedores: proveedoresReducer,
   clientes: clientesReducer,
   usuarios: usuarioReducer,
