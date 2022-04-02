@@ -82,6 +82,7 @@ create table if not exists `pedido` (
 # ENTIDAD: PRODUCTO-PEDIDO
 create table if not exists `producto-pedido` (
     `ID` int auto_increment not null comment 'Clave primaria',
+    `FechaCreacion` date not null comment 'Fecha creacion del producto-pedido',
     `CodigoBarra` varchar(50) not null comment 'Identificador propio de los producto-pedido',
     `Descripcion` varchar(50) not null comment 'Descripcion del producto-pedido',
     `Cantidad` float not null comment 'Cantidad del producto-pedido',
