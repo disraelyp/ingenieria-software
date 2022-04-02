@@ -9,11 +9,15 @@ Content-Type: application/json
         {
             "Producto": 1,
             "Cantidad": 100,
+            "Precio": 2000,
+            "Impuesto": 100,
             "Categoria": "Precio 1"
         },
         {
             "Producto": 2,
             "Cantidad": 100,
+            "Precio": 300,
+            "Impuesto": 100,
             "Categoria": "Precio 3"
         }
     ]

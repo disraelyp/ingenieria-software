@@ -3,8 +3,8 @@ Content-Type: application/json
 
 {
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6MSwiTm9tYnJlIjoiTGVzbGllIiwiVXN1YXJpbyI6Imxlc2xpZSIsIlJvbGUiOiJBZG1pbmlzdHJhZG9yIiwiQWN0aXZvIjp0cnVlLCJpYXQiOjE2NDUwMjcwMzR9.2AW-l7m-ZXpk_1oFRXphAukyL4sk487SOxnq_6uNKoc",
-    "RNC": "0000",
-    "Nombre": "Rica",
-    "Telefono": "123123",
-    "Direccion": " " 
+    "RNC": "101004411",
+    "Nombre": "Pasteurizadora Rica, S.A.",
+    "Telefono": "(809) 570-6311",
+    "Direccion": "AUT. DUARTE KM 6 1/2 STD DGOR.D. 809-563-7422 TEDINANYI ESTRELLA." 
 }

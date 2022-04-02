@@ -3,8 +3,8 @@ Content-Type: application/json
 
 {
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6MSwiTm9tYnJlIjoiRGlzcmFlbHkiLCJVc3VhcmlvIjoiZGlzcmFlbHlwIiwiUm9sZSI6IkFkbWluaXN0cmFkb3IiLCJBY3Rpdm8iOnRydWUsImlhdCI6MTY0NDI0MzYwOH0.p23JPY6G3oE7dwOVUDLNhd6mKW7OVEgvQsJdMm3qBbI",
-    "Cedula": "123231",
-    "Nombre": "Leslie",
-    "Direccion": "Calle no. 1",
-    "Telefono": "123456"
+    "Cedula": "402-000000-0",
+    "Nombre": "Leslie Rodriguez Nuñez",
+    "Direccion": "Calle 7 no. 1, Santiago de los Caballeros, Santiago, Republica Dominicana",
+    "Telefono": "(809) 000 0000"
 }

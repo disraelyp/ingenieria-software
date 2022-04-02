@@ -45,7 +45,7 @@ export class ProductoPedidoService {
       CodigoBarra: producto.CodigoBarra,
       Descripcion: producto.Descripcion,
       Cantidad: productoPedido.Cantidad,
-      Costo: productoPedido.Costo,
+      Costo: producto.Costo,
       Precio: productoPedido.Precio,
       Impuesto: productoPedido.Impuesto,
       Pedido: productoPedido.Pedido,
