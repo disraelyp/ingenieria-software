@@ -235,3 +235,10 @@ export const cantidadValidate = (value) => {
   }
   return null
 }
+
+export const metodoPagoValidate = (value) => {
+  if (value <= 0) {
+    return 'Ingrese un metodo de pago valido'
+  }
+  return null
+}

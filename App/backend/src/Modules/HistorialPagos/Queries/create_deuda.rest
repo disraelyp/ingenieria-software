@@ -1,0 +1,15 @@
+POST http://localhost:3001/HistoralPagos
+Content-Type: application/json
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6MSwiTm9tYnJlIjoiRGlzcmFlbHkiLCJVc3VhcmlvIjoiZGlzcmFlbHlwIiwiUm9sZSI6IkFkbWluaXN0cmFkb3IiLCJBY3Rpdm8iOnRydWUsImlhdCI6MTY0NDI0MzYwOH0.p23JPY6G3oE7dwOVUDLNhd6mKW7OVEgvQsJdMm3qBbI",
+    "Descripcion": "Compra de mercancia a 15 dias con un maximo de dos cuotas",
+    "Termino": 15,
+    "PagoMinimo": 500,
+    "SaldoPendiente": 10000,
+    "SaldoPagado": 0,
+    "Pendiente": true,
+    "Vendedor": "Disraely",
+    "Cliente": 1,
+    "Pedido": 1
+}
