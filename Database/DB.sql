@@ -43,7 +43,6 @@ create table if not exists `cliente` (
     unique key `Cedula`(`Cedula`)
 ) ENGINE=INNODB;
 
-
 # ENTIDAD: PRODUCTO
 create table if not exists `producto` (
 	`ID` int auto_increment not null comment 'Clave primaria',
@@ -59,7 +58,6 @@ create table if not exists `producto` (
     primary key(`ID`),
     unique key `CodigoBarra`(`CodigoBarra`)
 ) ENGINE=INNODB;
-
 
 # ENTIDAD: PRECIOS
 create table if not exists `precio` (
@@ -81,7 +79,8 @@ create table if not exists `pedido` (
     `Pagado` boolean not null comment 'Estado de pago del pedido',
     `Vendedor` varchar(50) not null comment 'Vendedor del pedido',
     `clienteID` int not null comment 'Cliente del pedido', 
-    primary key(`ID`)
+    primary key(`ID`),
+    foreign key (`clienteID`) references `cliente`(`ID`) on delete cascade
 ) ENGINE=INNODB;
 
 # ENTIDAD: PRODUCTO-PEDIDO
@@ -101,14 +100,15 @@ create table if not exists `producto-pedido` (
     foreign key (`productoID`) references `producto`(`ID`) on delete cascade
 ) ENGINE=INNODB;
 
-# ENTIDAD: DEVOLCION
+# ENTIDAD: DEVOLUCION
 create table if not exists `devolucion` (
     `ID` int auto_increment not null comment 'Clave primaria',
     `FechaCreacion` date not null comment 'Fecha creacion de la devolucion',
     `Pagado` boolean not null comment 'Estado de pago de la devolucion',
     `Vendedor` varchar(50) not null comment 'Vendedor de la devolucion',
     `clienteID` int not null comment 'Cliente de la devolucion', 
-    primary key(`ID`)
+    primary key(`ID`),
+    foreign key (`clienteID`) references `cliente`(`ID`) on delete cascade
 ) ENGINE=INNODB;
 
 # ENTIDAD: PRODUCTO-DEVOLUCION
@@ -128,6 +128,32 @@ create table if not exists `producto-devolucion` (
     foreign key (`productoID`) references `producto`(`ID`) on delete cascade
 ) ENGINE=INNODB;
 
+# ENTIDAD: COMPRAS
+create table if not exists `compra` (
+    `ID` int auto_increment not null comment 'Clave primaria',
+    `FechaCreacion` date not null comment 'Fecha creacion de la compra',
+    `Pagado` boolean not null comment 'Estado de pago de la compra',
+    `Comprador` varchar(50) not null comment 'Vendedor de la compra',
+    `Termino` varchar(255) not null comment 'Termino de la compra',
+    `proveedorID` int not null comment 'Proveedor de la compra', 
+    primary key(`ID`),
+    foreign key (`proveedorID`) references `proveedor`(`ID`) on delete cascade
+) ENGINE=INNODB;
+
+# ENTIDAD: PRODUCTO-COMPRA
+create table if not exists `producto-compra` (
+    `ID` int auto_increment not null comment 'Clave primaria',
+    `FechaCreacion` date not null comment 'Fecha creacion del producto-compra',
+    `CodigoBarra` varchar(50) not null comment 'Identificador propio de los producto-compra',
+    `Descripcion` varchar(50) not null comment 'Descripcion del producto-compra',
+    `Cantidad` float not null comment 'Cantidad del producto-compra',
+    `Costo` float not null comment 'Costo del producto-compra',
+    `productoID` int not null comment 'Relacion con el producto', 
+    `compraID` int not null comment 'Relacion con la compra',   
+    primary key(`ID`),
+    foreign key (`compraID`) references `compra`(`ID`) on delete cascade,
+    foreign key (`productoID`) references `producto`(`ID`) on delete cascade
+) ENGINE=INNODB;
 
 # ENTIDAD: historialPagos
 create table if not exists `historial-pago` (
@@ -142,5 +168,7 @@ create table if not exists `historial-pago` (
     `Vendedor` varchar(50) not null comment 'Vendedor del pedido',
     `clienteID` int not null comment 'Cliente de la deduda', 
     `pedidoID` int not null comment 'Pedido de la deuda', 
-    primary key(`ID`)
+    primary key(`ID`),
+    foreign key (`clienteID`) references `cliente`(`ID`) on delete cascade,
+    foreign key (`pedidoID`) references `pedido`(`ID`) on delete cascade
 ) ENGINE=INNODB;

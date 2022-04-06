@@ -16,10 +16,10 @@ export class DevolucionEntity {
     @Column()
       Pagado: boolean
 
-    @ManyToOne(() => ClienteEntity, clientePedido => clientePedido.Pedidos)
+    @ManyToOne(() => ClienteEntity, clientePedido => clientePedido.Devoluciones)
       Cliente: ClienteEntity[]
 
-    @OneToMany(() => ProductoDevolucionEntity, productoPedido => productoPedido.Devolucion)
+    @OneToMany(() => ProductoDevolucionEntity, productoDevolucion => productoDevolucion.Devolucion)
       Productos: ProductoDevolucionEntity[]
 
 }
