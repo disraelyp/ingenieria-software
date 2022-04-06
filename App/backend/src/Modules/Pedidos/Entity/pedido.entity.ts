@@ -1,4 +1,5 @@
 import { ClienteEntity } from 'src/Modules/Clientes/Entity/cliente-entity'
+import { historialPagoEntity } from 'src/Modules/HistorialPagos/Entity/historialPago-entity'
 import { ProductoPedidoEntity } from 'src/Modules/ProductosPedido/Entity/producto-pedido.entity'
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne } from 'typeorm'
 
@@ -24,6 +25,9 @@ export class PedidoEntity {
 
     @ManyToOne(() => ClienteEntity, clientePedido => clientePedido.Pedidos)
       Cliente: ClienteEntity[]
+
+    @OneToMany(() => historialPagoEntity, clientePedido => clientePedido.Pedido)
+      Pagos: historialPagoEntity[]
 
     @OneToMany(() => ProductoPedidoEntity, productoPedido => productoPedido.Pedido)
       Productos: ProductoPedidoEntity[]

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { updateTitulo } from './../../../Reducers/tituloReducer'
-import useField from './../../../Hooks/useField'
+import { updateTitulo } from '../../../Reducers/tituloReducer'
+import useField from '../../../Hooks/useField'
 import { PedidoCreateColumns } from '../../../Utils/columns'
 import { DataGrid } from '@mui/x-data-grid'
 import { itemForm } from '../../../Styles/gridForm'
@@ -10,23 +10,23 @@ import TextInput from '../../athomic-components/TextInput'
 import Button from '../../athomic-components/Button'
 import SelectInput from '../../athomic-components/SelectInput'
 import { codigoValidate, cantidadValidate, precioOptionesValidate } from '../../../Utils/validaciones'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
 import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch'
 import ClienteListModal from './ClienteListModal'
 import ProductoListModal from './ProductoListModal'
 import DoneIcon from '@mui/icons-material/Done'
-import { createNotification } from './../../../Reducers/notificacionesReducer'
+import { createNotification } from '../../../Reducers/notificacionesReducer'
 import { initializePedidos } from '../../../Reducers/pedidosReducer'
 import pedidoService from '../../../Services/pedido'
+import NotFound from '../../Utils/NotFound'
 
 
-const ProductoPanel = ({ setOnChangeSelect, cliente, agregarFila, modificarFila, deleteRow, rows, selectRow, onChangeSelect }) => {
+const ProductoPanel = ({ id, setOnChangeSelect, cliente, agregarFila, modificarFila, deleteRow, rows, selectRow, onChangeSelect }) => {
 
   const history = useHistory()
   const dispatch = useDispatch()
-  const user = useSelector(state => state.user)
   const productos = useSelector(state => { return state.productos })
   const [openProductoListModal, setOpenProductoListModal] = useState(false)
   const [OpcionesPrecios, setOpcionesPrecios] = useState([])
@@ -35,21 +35,19 @@ const ProductoPanel = ({ setOnChangeSelect, cliente, agregarFila, modificarFila,
   const Cantidad = useField('number', '', cantidadValidate)
   const Precio = useField('number', 0, precioOptionesValidate)
 
-  const crearPedido = async (event) => {
+  const actualizarPedido = async (event) => {
     event.preventDefault()
     if(cliente !== null) {
       if(rows.length !== 0) {
         const nuevoPedido = {
-          Cliente: cliente.ID,
-          Vendedor: user.user.Nombre,
           Productos: rows.map(a => {return { 'Producto': productos.find(b => b.CodigoBarra === a.Codigo).ID, 'Cantidad': a.Cantidad, 'Precio': a.Precio, 'Impuesto': a.Impuesto }})
         }
-        const pedido = await pedidoService.create(nuevoPedido)
+        const pedido = await pedidoService.update(parseInt(id), nuevoPedido)
         if(pedido.data.error){
           console.log(pedido.data.message)
         } else {
           dispatch(initializePedidos())
-          dispatch(createNotification('Pedido creado correctamente!', 'Información'))
+          dispatch(createNotification('Pedido modificado correctamente!', 'Información'))
           history.push('/Facturacion/Pedidos')
         }
       } else {
@@ -135,7 +133,7 @@ const ProductoPanel = ({ setOnChangeSelect, cliente, agregarFila, modificarFila,
   const onChangeCodigo = (producto) => {
     Descripcion.functions.setValue(producto.Descripcion)
     setOpcionesPrecios(adapterPrecios(producto.Precios))
-    Precio.functions.setValue(((adapterPrecios(producto.Precios)).find(precio => precio.label === 'RD$ '+(selectRow.Precio+selectRow.Impuesto))).value)
+    Precio.functions.setValue(((adapterPrecios(producto.Precios)).find(precio => precio.label === 'RD$ '+(selectRow.Precio+selectRow.Impuesto))) ? ((adapterPrecios(producto.Precios)).find(precio => precio.label === 'RD$ '+(selectRow.Precio+selectRow.Impuesto))).value : 0)
     Cantidad.functions.setValue(producto.Cantidad)
   }
 
@@ -173,7 +171,7 @@ const ProductoPanel = ({ setOnChangeSelect, cliente, agregarFila, modificarFila,
             </IconButton>
           </form>
         </div>
-        <form onSubmit={crearPedido}>
+        <form onSubmit={actualizarPedido}>
           <FormHelperText >Subtotal </FormHelperText>
           <TextInput moreSx={{ width: '100%' }} disable={true} value={subtotal()} />
           <FormHelperText >Impuestos </FormHelperText>
@@ -189,18 +187,24 @@ const ProductoPanel = ({ setOnChangeSelect, cliente, agregarFila, modificarFila,
   )
 }
 
-const PedidoCreate = () => {
+const PedidoUpdate = () => {
 
+  const id = useParams().id
   const dispatch = useDispatch()
-  const [cliente, setCliente] = useState(null)
   const [openClienteListModal, setOpenClienteListModal] = useState(false)
-  const [selectionModel, setSelectionModel] = useState([])
-  const [rows, setRows] = useState(() => [])
-  const selectRow = rows[selectionModel]
   const [onChangeSelect, setOnChangeSelect] = useState(false)
 
+  const pedidos = useSelector(state => { return state.pedidos })
+  const pedido = pedidos.find(pedido => parseInt(pedido.ID) === parseInt(id))
+
+  const cliente = pedido.Cliente
+  const [selectionModel, setSelectionModel] = useState([])
+  const [rows, setRows] = useState(() => [])
+  let [charge, setCharge] = useState(false)
+  const selectRow = rows[selectionModel]
+
   useEffect(() => {
-    dispatch(updateTitulo('Crear Pedido'))
+    dispatch(updateTitulo('Modificar Pedido'))
   }, [dispatch])
 
   const updateRow = () => {
@@ -227,13 +231,23 @@ const PedidoCreate = () => {
     updateRow()
   }
 
+
+  if(!pedido){
+    return <NotFound />
+  } else {
+    if(!charge) {
+      pedido.Productos.map(producto => agregarFila(producto.CodigoBarra, producto.Descripcion, producto.Cantidad, producto.Precio, producto.Cantidad*(producto.Precio+producto.Impuesto), producto.Impuesto))
+      setCharge(true)
+    }
+  }
+
   return (
     <>
-      { openClienteListModal ? <ClienteListModal setCliente={setCliente} setOpenClienteListModal={setOpenClienteListModal} /> : null}
+      { openClienteListModal ? <ClienteListModal setOpenClienteListModal={setOpenClienteListModal} /> : null}
       <Grid sx={{ width: '100%' }} container spacing={0} direction='column' alignItems='center' justifyContent='center'>
         <Grid item xs={12} sx={{ width: '94%' }}>
           <TextInput disable={true} moreSx={{ width: '68%' }} value={cliente ? cliente.Nombre +' (Ced.:'+cliente.Cedula+')' : ''} label={'Cliente'} />
-          <Button onClick={() => setOpenClienteListModal(true)} moreSx={{ width: '30%', height: '56px', marginLeft: '2%' }} color={'warning'} text={'Buscar'} />
+          <Button disable={true} moreSx={{ width: '30%', height: '56px', marginLeft: '2%' }} color={'warning'} text={'Buscar'} />
         </Grid>
         <Grid item xs={12} sx={itemForm()}>
           <div style={{ height: 'calc(100vh - 230px)',  width: '100%', margin: '10px', maxWidth: '1000px' }} >
@@ -250,11 +264,11 @@ const PedidoCreate = () => {
               selectionModel={selectionModel}
             />
           </div>
-          <ProductoPanel selectRow={selectRow} cliente={cliente} setOnChangeSelect={setOnChangeSelect} onChangeSelect={onChangeSelect} agregarFila={agregarFila} modificarFila={modificarFila} rows={rows} deleteRow={deleteRow} />
+          <ProductoPanel id={id} selectRow={selectRow} cliente={cliente} setOnChangeSelect={setOnChangeSelect} onChangeSelect={onChangeSelect} agregarFila={agregarFila} modificarFila={modificarFila} rows={rows} deleteRow={deleteRow} />
         </Grid>
       </Grid>
     </>
   )
 }
 
-export default PedidoCreate
+export default PedidoUpdate

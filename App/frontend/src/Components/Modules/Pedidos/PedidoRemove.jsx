@@ -1,21 +1,21 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import ProductoServices from '../../../Services/pedido'
+import pedidoServices from '../../../Services/pedido'
 import { Backdrop, Box, Fade, Modal, Typography } from '@mui/material'
-import { initializeProductos } from './../../../Reducers/pedid'
+import { initializePedidos } from '../../../Reducers/pedidosReducer'
 import { createNotification } from '../../../Reducers/notificacionesReducer'
 import Button from '../../athomic-components/Button'
 import { modalStyle } from '../../../Styles/modalStyle'
 
 
-const PedidoRemoveModal = ({ id, setOpenModal }) => {
+const PedidoeRemoveModal = ({ id, setOpenModal }) => {
 
   const dispatch = useDispatch()
 
-  const deletePedido= () => {
-    const response = ProductoServices.remove(id)
-    dispatch(initializeProductos())
+  const deletePedido = async () => {
+    const response = await pedidoServices.remove(id)
     if(!response.error) {
+      dispatch(initializePedidos())
       dispatch(createNotification('¡Pedido eliminado correctamente!', 'Información'))
     }
     setOpenModal(false)
@@ -26,10 +26,10 @@ const PedidoRemoveModal = ({ id, setOpenModal }) => {
       <Fade in={true}>
         <Box sx={modalStyle}>
           <Typography id="transition-modal-title" variant="h6" component="h2">
-            { '¿Seguro que desea eliminar este producto (ID:'+id+')?'  }
+            { '¿Seguro que desea eliminar este pedido (ID:'+id+')?'  }
           </Typography>
           <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-            Esta acción es irreversible, si en algún momento deseas este producto deberás crearlo nuevamente.
+            Esta acción es irreversible, si en algún momento deseas este pedido deberás crearlo nuevamente.
           </Typography>
           <Button onClick={() => deletePedido()} text={'Confirmar'} color='error' />
           <Button onClick={() => setOpenModal(false)} text={'Cancelar'} color='success' />
@@ -39,4 +39,4 @@ const PedidoRemoveModal = ({ id, setOpenModal }) => {
   )
 }
 
-export default PedidoRemoveModal
+export default PedidoeRemoveModal

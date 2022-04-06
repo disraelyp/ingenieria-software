@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Param } from '@nestjs/common'
+import { Controller, Post, Body, Get, Param, Put, Delete } from '@nestjs/common'
 import PedidoModel from '../Models/pedido.module'
 import { PedidoService } from '../Services/pedido.service'
 
@@ -8,8 +8,8 @@ export class PedidoController {
   constructor(private pedidoService: PedidoService) {}
 
   @Post()
-  addPedidos(@Body() precioModel: PedidoModel): any {
-    return this.pedidoService.savePedido(precioModel)
+  addPedidos(@Body() pedidoModel: PedidoModel): any {
+    return this.pedidoService.savePedido(pedidoModel)
   }
 
   @Get(':token')
@@ -17,5 +17,14 @@ export class PedidoController {
     return this.pedidoService.findAll({ 'token': params.token })
   }
 
+  @Put(':id')
+  updatePedido(@Body() pedidoModel: any, @Param() params,): any {
+    return this.pedidoService.updatePedido(params.id, pedidoModel)
+  }
+
+  @Delete(':id')
+  deleteProductoPedido(@Body() token: any, @Param() params): any {
+    return this.pedidoService.deletePedido(token, params.id)
+  }
 
 }

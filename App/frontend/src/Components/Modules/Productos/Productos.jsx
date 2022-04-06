@@ -22,8 +22,6 @@ const Productos = () => {
 
   const user = useSelector(state => state.user)
   const productos = useSelector(state => { return state.productos })
-  console.log(productos)
-
   const [openModal, setOpenModal] = useState(false)
   const [selectionModel, setSelectionModel] = useState([])
 

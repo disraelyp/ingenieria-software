@@ -1,7 +1,8 @@
 export const Estados: Array<string> = [
-  'En proceso',
-  'Facturado',
-  'En camino',
-  'Finalizado'
+  'En proceso', // Azul
+  'Facturado',  // Morado
+  'En camino',  // Amarillo
+  'Finalizado'  // Verde
 ]
+
 
