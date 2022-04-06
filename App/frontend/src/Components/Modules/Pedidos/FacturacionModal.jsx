@@ -127,7 +127,6 @@ const FacturacionModal = ({ setOpenFacturacionModal, pedidoSeleccionado }) => {
           Cliente: pedido.Cliente.ID,
           Pedido: pedido.ID
         }
-        console.log(nuevoPago)
         cambiarEstadoDevolucion()
         await pedidoEstadoService.change({ 'ID': pedido.ID, 'Estado': 'En camino', 'Pagado': !nuevoPago.Pendiente })
         await historialPagoService.create(nuevoPago)
@@ -162,7 +161,6 @@ const FacturacionModal = ({ setOpenFacturacionModal, pedidoSeleccionado }) => {
           Cliente: pedido.Cliente.ID,
           Pedido: pedido.ID
         }
-        console.log(nuevoPago)
         cambiarEstadoDevolucion()
         await pedidoEstadoService.change({ 'ID': pedido.ID, 'Estado': 'Finalizado', 'Pagado': !nuevoPago.Pendiente })
         await historialPagoService.create(nuevoPago)
