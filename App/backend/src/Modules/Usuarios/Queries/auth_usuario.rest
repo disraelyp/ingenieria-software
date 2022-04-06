@@ -5,5 +5,3 @@ Content-Type: application/json
     "Password": "12345",
     "Usuario": "admin"
 }
-
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6MSwiTm9tYnJlIjoiRGlzcmFlbHkiLCJVc3VhcmlvIjoiYWRtaW4iLCJSb2xlIjoiQWRtaW5pc3RyYWRvciIsIkFjdGl2byI6dHJ1ZSwiaWF0IjoxNjQ2NjExODU4fQ.kmYr1fYwdpjVCe78XS2SQRZ1UI4MHSu4bfOiDBVyUoc

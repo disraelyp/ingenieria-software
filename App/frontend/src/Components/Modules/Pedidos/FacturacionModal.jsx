@@ -1,15 +1,20 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
-import { Backdrop, Box, Fade, Modal, Typography } from '@mui/material'
+import { Backdrop, Box, Fade, Grid, Modal, Typography } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import Button from '../../athomic-components/Button'
 import TextInput from '../../athomic-components/TextInput'
+import SwitchInput from '../../athomic-components/Switch'
 import { cantidadValidate, metodoPagoValidate } from '../../../Utils/validaciones'
 import useField from './../../../Hooks/useField'
+import useSwitch from './../../../Hooks/useSwitch'
 import SelectInput from '../../athomic-components/SelectInput'
 import { initializePedidos } from '../../../Reducers/pedidosReducer'
 import { initializeProductos } from '../../../Reducers/productosReducer'
+import { initializeDevoluciones } from '../../../Reducers/devolucionesReducer'
 import pedidoEstadoService from './.../../../../../Services/pedidoEstado'
 import historialPagoService from './.../../../../../Services/historialPagos'
+import devolucionEstadoService from './.../../../../../Services/devolucionEstado'
 import { createNotification } from './../../../Reducers/notificacionesReducer'
 import { useHistory } from 'react-router-dom'
 import { initializeHistorialPagos } from '../../../Reducers/historialPagos'
@@ -22,19 +27,46 @@ const FacturacionModal = ({ setOpenFacturacionModal, pedidoSeleccionado }) => {
   const pedidos = useSelector(state => { return state.pedidos })
   const user = useSelector(state => { return state.user })
   const pedido = pedidos.find(pedido => pedido.ID === pedidoSeleccionado.id)
+
+  const devoluciones = (useSelector(state => { return state.devoluciones })).filter(devolucion => !(devolucion.Pagado) && devolucion.Cliente.ID === pedido.Cliente.ID)
+  const totalDevoluciones = () => {
+    let total=0
+    if(devoluciones.length !== 0) {
+      devoluciones.map(devolucion => (devolucion.Productos).map(producto => total += ((producto.Precio+producto.Impuesto)*producto.Cantidad)))
+    }
+    return total
+  }
+  const saldoFavorAprobado = () => {
+    return ((totalDevoluciones() <= (parseInt((pedidoSeleccionado.Total).slice(2, pedidoSeleccionado.length)))) && totalDevoluciones()!==0 && Metodo.form.value === 1)
+  }
+  const saldoFavorSwitch = useSwitch(false)
   const Total = useField('number', (parseInt((pedidoSeleccionado.Total).slice(2, pedidoSeleccionado.length))), cantidadValidate)
   const Metodo = useField('number', 0, metodoPagoValidate)
   const MinimoPagar = useField('number', Total.form.value, cantidadValidate)
-  const saldoFavor = useField('number', 0, cantidadValidate)
+  const saldoFavor = useField('number', totalDevoluciones(), cantidadValidate)
   const Devuelta = useField('number', 0, cantidadValidate)
+
+  const totalFinal = () => {
+    if(saldoFavorAprobado()) {
+      return (parseInt(Total.form.value) - totalDevoluciones())
+    }
+    return parseInt(Total.form.value)
+  }
+  const devuelta = () => {
+    if (parseInt(Metodo.form.value)  === 1) {
+      return  (TotalPagar.form.value- totalFinal())
+    }
+    return 0
+  }
+
   const totalPagarValidate = (value) => {
     if(Metodo.form.value === 1) {
-      if (value !== parseInt(Total.form.value)) {
+      if (value !== totalFinal()) {
         return 'Ingrese una cantidad valida'
       }
       return null
     } else {
-      if (value > 0 && value >= parseInt(Total.form.value)) {
+      if (value > 0 && value >= totalFinal()) {
         return 'Ingrese una cantidad valida'
       }
       return null
@@ -48,12 +80,7 @@ const FacturacionModal = ({ setOpenFacturacionModal, pedidoSeleccionado }) => {
     }
     return 0
   }
-  const devuelta = () => {
-    if (parseInt(Metodo.form.value)  === 1) {
-      return  (TotalPagar.form.value - parseInt((pedidoSeleccionado.Total).slice(2, pedidoSeleccionado.length)))
-    }
-    return 0
-  }
+
 
 
   const metodosPago = () => {
@@ -74,28 +101,40 @@ const FacturacionModal = ({ setOpenFacturacionModal, pedidoSeleccionado }) => {
     ]
   }
 
+
+
+  const cambiarEstadoDevolucion = () => {
+    if  (saldoFavorAprobado()) {
+      const IDS = devoluciones.map(devolucion => devolucion.ID)
+      IDS.map(async ID => await devolucionEstadoService.change({ 'ID': ID, 'Pagado': true }))
+    }
+  }
+
   const facturarEnviar = async () => {
-    if(Metodo.form.value === 1 && TotalPagar.form.value !== parseInt(Total.form.value)) {
-      TotalPagar.functions.setValue(parseInt(Total.form.value))
+    if(Metodo.form.value === 1 && TotalPagar.form.value !== totalFinal()) {
+      TotalPagar.functions.setValue(totalFinal())
     } else {
       if(TotalPagar.functions.isValidate() && Metodo.functions.isValidate()){
+        console.log(Metodo.form.value)
         const nuevoPago = {
           Descripcion: 'Facturacion y envio a domicilio de un nuevo pedido',
           Termino: Metodo.form.value,
           PagoMinimo: MinimoPagar.form.value,
-          SaldoPendiente: Metodo.form.value === 1 ? 0 :  (parseInt((pedidoSeleccionado.Total).slice(2, pedidoSeleccionado.length))) - parseInt(TotalPagar.form.value),
+          SaldoPendiente: Metodo.form.value === 1 ? 0 :  totalFinal() - parseInt(TotalPagar.form.value),
           SaldoPagado: Metodo.form.value === 1 ? (parseInt((pedidoSeleccionado.Total).slice(2, pedidoSeleccionado.length))) : parseInt(TotalPagar.form.value),
-          Pendiente: Metodo.form.value === 1 ? (parseInt((pedidoSeleccionado.Total).slice(2, pedidoSeleccionado.length))) !== parseInt(Total.form.value): true,
+          Pendiente: Metodo.form.value === 1 ? false : true,
           Vendedor: user.user.Nombre,
           Cliente: pedido.Cliente.ID,
           Pedido: pedido.ID
         }
-
-        await pedidoEstadoService.change({ 'ID': pedido.ID, 'Estado': 'En camino', 'Pagado': !(Metodo.form.value === 1 ? (parseInt((pedidoSeleccionado.Total).slice(2, pedidoSeleccionado.length))) !== parseInt(Total.form.value): true) })
+        console.log(nuevoPago)
+        cambiarEstadoDevolucion()
+        await pedidoEstadoService.change({ 'ID': pedido.ID, 'Estado': 'En camino', 'Pagado': !nuevoPago.Pendiente })
         await historialPagoService.create(nuevoPago)
         dispatch(initializePedidos())
         dispatch(initializeProductos())
         dispatch(initializeHistorialPagos())
+        dispatch(initializeDevoluciones())
         dispatch(createNotification('Pedido facturado e enviado correctamente!', 'Información'))
         setOpenFacturacionModal(false)
         history.push('/Facturacion/Pedidos')
@@ -108,27 +147,29 @@ const FacturacionModal = ({ setOpenFacturacionModal, pedidoSeleccionado }) => {
 
 
   const facturarFinalizar = async () => {
-    if(Metodo.form.value === 1 && TotalPagar.form.value !== parseInt(Total.form.value)) {
-      TotalPagar.functions.setValue(parseInt(Total.form.value))
+    if(Metodo.form.value === 1 && TotalPagar.form.value !==totalFinal()) {
+      TotalPagar.functions.setValue(totalFinal())
     } else {
       if(TotalPagar.functions.isValidate() && Metodo.functions.isValidate()){
         const nuevoPago = {
           Descripcion: 'Facturacion inmediata de nuevo pedido',
           Termino: Metodo.form.value,
           PagoMinimo: MinimoPagar.form.value,
-          SaldoPendiente: Metodo.form.value === 1 ? 0 :  (parseInt((pedidoSeleccionado.Total).slice(2, pedidoSeleccionado.length))) - parseInt(TotalPagar.form.value),
+          SaldoPendiente: Metodo.form.value === 1 ? 0 :  totalFinal() - parseInt(TotalPagar.form.value),
           SaldoPagado: Metodo.form.value === 1 ? (parseInt((pedidoSeleccionado.Total).slice(2, pedidoSeleccionado.length))) : parseInt(TotalPagar.form.value),
-          Pendiente: Metodo.form.value === 1 ? (parseInt((pedidoSeleccionado.Total).slice(2, pedidoSeleccionado.length))) !== parseInt(Total.form.value): true,
+          Pendiente: Metodo.form.value === 1 ? false : true,
           Vendedor: user.user.Nombre,
           Cliente: pedido.Cliente.ID,
           Pedido: pedido.ID
         }
-
-        await pedidoEstadoService.change({ 'ID': pedido.ID, 'Estado': 'Finalizado', 'Pagado': !(Metodo.form.value === 1 ? (parseInt((pedidoSeleccionado.Total).slice(2, pedidoSeleccionado.length))) !== parseInt(Total.form.value): true) })
+        console.log(nuevoPago)
+        cambiarEstadoDevolucion()
+        await pedidoEstadoService.change({ 'ID': pedido.ID, 'Estado': 'Finalizado', 'Pagado': !nuevoPago.Pendiente })
         await historialPagoService.create(nuevoPago)
         dispatch(initializePedidos())
         dispatch(initializeProductos())
         dispatch(initializeHistorialPagos())
+        dispatch(initializeDevoluciones())
         dispatch(createNotification('Pedido facturado correctamente!', 'Información'))
         setOpenFacturacionModal(false)
         history.push('/Facturacion/Pedidos')
@@ -168,7 +209,15 @@ const FacturacionModal = ({ setOpenFacturacionModal, pedidoSeleccionado }) => {
           </Typography>
           <div onClick={minimoPagar} style={{ height: 'calc(80vh - 230px)', minHeight: '100px', width: '100%', marginTop: 20 }} >
             <TextInput moreSx={{ marginTop: 1, width: '100%' }} disable={true} label={'Total a pagar'} { ...Total.form} />
-            <TextInput moreSx={{ marginTop: 1, width: '100%' }} disable={true} label={'Saldo a favor'} { ...saldoFavor.form} />
+            <Grid spacing={2} container >
+              <Grid item xs={8} >
+                <TextInput disable={true} label={'Saldo a favor'} { ...saldoFavor.form} />
+              </Grid>
+              <Grid item xs={4}>
+                <SwitchInput disable={true} label={'Usar saldo disponible'} { ...saldoFavorSwitch } checked={saldoFavorAprobado()} moreSx={{ marginTop: 3, width: '100%' }} />
+              </Grid>
+            </Grid>
+
             <SelectInput { ...Metodo.form } moreSx={{ marginTop: 1, width: '100%' }} label={'Metodos de pago'} text={'Seleccione un metodo de pago'} options={metodosPago()} />
             <TextInput disable={true} moreSx={{ marginTop: 1, width: '100%' }} label={'Monto minimo a pagar'} { ...MinimoPagar.form } value={minimoPagar()} />
             <TextInput moreSx={{ marginTop: 1, width: '100%' }} label={'Monto a pagar'} { ...TotalPagar.form } />

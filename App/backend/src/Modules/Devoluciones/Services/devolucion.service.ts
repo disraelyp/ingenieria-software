@@ -66,4 +66,34 @@ export class DevolucionService {
 
     return devolucionIngresada
   }
+
+  async cambiarEstado(object: any){
+
+    // Verificacion de token
+    if(validateToken(object,  ['Administrador', 'Cajera']) === false) {
+      return { message: 'token missing or invalid', error: 401 }
+    }
+    // verificacion de estado
+    if (!object.Pagado || typeof object.Pagado !== 'boolean') {
+      return { message: 'Ingrese el estado de la devolucion', error: 401 }
+    }
+    // Verificacion de ID
+    if (!object.ID || typeof object.ID !== 'number') {
+      return { message: 'Ingrese el ID de la devolucion', error: 401 }
+    }
+
+    const devoluciones = await this.devolucionRP.find()
+    const devolucion = devoluciones.find(devolucion => devolucion.ID === parseInt(object.ID))
+
+
+    if(!devolucion){
+      return { Message: 'Ingrese un ID valido', error: 401 }
+    }
+
+    const devolucionModificado = {
+      Pagado: object.Pagado
+    }
+    await this.devolucionRP.update(devolucion.ID, devolucionModificado)
+    return await this.devolucionRP.findOne(object.ID)
+  }
 }

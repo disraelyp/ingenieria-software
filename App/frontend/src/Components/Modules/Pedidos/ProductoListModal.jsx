@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react'
 import { Backdrop, Box, Fade, Modal, Typography } from '@mui/material'
 import { ProductoModalColumns } from '../../../Utils/columns'

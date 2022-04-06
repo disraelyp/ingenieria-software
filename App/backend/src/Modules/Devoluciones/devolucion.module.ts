@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { DevolucionController } from './Controller/devolucion.controller'
+import { DevolucionEstadoController } from './Controller/devolucionEstado.controller'
 import { DevolucionEntity } from './Entity/devolucion.entity'
 import { DevolucionService } from './Services/devolucion.service'
 
@@ -9,7 +10,7 @@ import { DevolucionService } from './Services/devolucion.service'
     TypeOrmModule.forFeature([DevolucionEntity])
   ],
   controllers: [
-    DevolucionController
+    DevolucionController, DevolucionEstadoController
   ],
   providers:[
     DevolucionService

@@ -10,19 +10,6 @@ import TextInput from '../../athomic-components/TextInput'
 import ClienteListModal from './ClienteListModal'
 import EmitirPagoModal from './EmitirPagoModal'
 
-
-// const nuevoPago: any = {
-//   Descripcion: pago.Descripcion,
-//   Termino: pago.Termino,
-//   PagoMinimo: pago.PagoMinimo,
-//   SaldoPendiente: pago.SaldoPendiente,
-//   SaldoPagado: pago.SaldoPagado,
-//   Pendiente: pago.Pendiente,
-//   Vendedor: pago.Vendedor,
-//   Cliente: pago.Cliente,
-//   Pedido: pago.Pedido
-// }
-
 const CuentasCobrar = () => {
 
   const dispatch = useDispatch()

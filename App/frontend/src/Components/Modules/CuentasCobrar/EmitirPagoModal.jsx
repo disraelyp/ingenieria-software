@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 import React from 'react'
 import { Backdrop, Box, Fade, Modal, Typography } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
