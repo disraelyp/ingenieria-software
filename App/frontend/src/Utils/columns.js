@@ -15,9 +15,30 @@ export const ProductoColumns = [
   { field: 'Costo', headerName: 'Costo', minWidth: 100, flex: 1  },
 ]
 
+export const ProductoModalColumns = [
+  { field: 'CodigoBarra', headerName: 'Codigo Barra', width: 150 },
+  { field: 'Descripcion', headerName: 'Descripcion', minWidth: 100, flex: 1  },
+  { field: 'Cantidad', headerName: 'Cantidad', minWidth: 50, flex: 1  },
+  { field: 'Categoria', headerName: 'Categoria', minWidth: 100, flex: 1  },
+  { field: 'Precio', headerName: 'Precio', minWidth: 100, flex: 1  },
+]
+
 export const PedidosColumns = [
+  { field: 'id', headerName: 'ID', width: 150 },
+  { field: 'Fecha', headerName: 'Fecha', width: 150 },
+  { field: 'UltimaModificacion', headerName: 'Ultima Mod.', width: 150 },
+  { field: 'Etapa', headerName: 'Etapa', minWidth: 100, flex: 1  },
+  { field: 'Cliente', headerName: 'Cliente', minWidth: 100, flex: 1  },
+  { field: 'Estado', headerName: 'Estado', minWidth: 100, flex: 1  },
+  { field: 'Vendedor', headerName: 'Vendedor', minWidth: 50, flex: 1  },
+  { field: 'Total', headerName: 'Total', minWidth: 100, flex: 1  },
+]
+
+export const DevolucionesColumns = [
+  { field: 'id', headerName: 'ID', width: 150 },
   { field: 'Fecha', headerName: 'Fecha', width: 150 },
   { field: 'Cliente', headerName: 'Cliente', minWidth: 100, flex: 1  },
+  { field: 'Estado', headerName: 'Estado', minWidth: 100, flex: 1  },
   { field: 'Vendedor', headerName: 'Vendedor', minWidth: 50, flex: 1  },
   { field: 'Total', headerName: 'Total', minWidth: 100, flex: 1  },
 ]
@@ -34,6 +55,25 @@ export const ClienteColumns = [
   { field: 'Nombre', headerName: 'Nombre', minWidth: 100, flex: 1  },
   { field: 'Cedula', headerName: 'Cedula', minWidth: 50, flex: 1  },
   { field: 'Direccion', headerName: 'Direccion', minWidth: 100, flex: 1  },
+]
+
+export const HistorialColumns = [
+  { field: 'id', headerName: 'ID', width: 150 },
+  { field: 'Fecha', headerName: 'Fecha', width: 150 },
+  { field: 'Descripcion', headerName: 'Descripcion', minWidth: 100, flex: 1  },
+  { field: 'Cliente', headerName: 'Cliente', minWidth: 100, flex: 1  },
+  { field: 'SaldoPagado', headerName: 'Saldo Pagado', minWidth: 50, flex: 1  },
+  { field: 'Cobrador', headerName: 'Cobrador', minWidth: 100, flex: 1  },
+]
+
+export const CuentasColumns = [
+  { field: 'id', headerName: 'ID', width: 150 },
+  { field: 'Fecha', headerName: 'Fecha', width: 150 },
+  { field: 'Descripcion', headerName: 'Descripcion', minWidth: 100, flex: 1  },
+  { field: 'Cliente', headerName: 'Cliente', minWidth: 100, flex: 1  },
+  { field: 'SaldoPendiente', headerName: 'Saldo Pendiente', minWidth: 50, flex: 1  },
+  { field: 'SaldoPagado', headerName: 'Saldo Pagado', minWidth: 50, flex: 1  },
+  { field: 'Cobrador', headerName: 'Cobrador', minWidth: 100, flex: 1  },
 ]
 
 export const PedidoCreateColumns = [

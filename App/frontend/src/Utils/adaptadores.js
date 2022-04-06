@@ -8,20 +8,27 @@ export const ProductosAdaptarDG = (item) => {
 }
 
 export const PedidosAdaptarDG = (item) => {
-  let total=0
-  item.Productos.map(producto => total+= producto.Cantidad * (producto.Datos.Precios.find(precio => precio.Categoria === producto.Categoria).Precio + producto.Datos.Precios.find(precio => precio.Categoria === producto.Categoria).Impuesto))
-  return { 'id': item.ID, 'Fecha': item.FechaCreacion.slice(0, 10), 'Vendedor': item.Vendedor,  'Cliente': item.Cliente.Nombre, 'Total': '$ '+total }
+  let total = 0
+  item.Productos.map(producto => total += producto.Cantidad * (producto.Precio + producto.Impuesto))
+  return { 'id': item.ID, 'Fecha': (item.FechaCreacion).slice(0, 10), 'Estado': item.Pagado ? 'Pagado' : 'Pendiente', 'UltimaModificacion': item.FechaModificacion.slice(0, 10), 'Vendedor': item.Vendedor,  'Cliente': item.Cliente.Nombre, 'Etapa': item.Estado, 'Total': '$ '+total }
 }
 
-export const PedidosColumns = [
-  { field: 'Fecha', headerName: 'Fecha', width: 150 },
-  { field: 'Cliente', headerName: 'Cliente', minWidth: 100, flex: 1  },
-  { field: 'Vendedor', headerName: 'Vendedor', minWidth: 50, flex: 1  },
-  { field: 'Total', headerName: 'Total', minWidth: 100, flex: 1  },
-]
+export const DevolucionesAdaptarDG = (item) => {
+  let total = 0
+  item.Productos.map(producto => total += producto.Cantidad * (producto.Precio + producto.Impuesto))
+  return { 'id': item.ID, 'Fecha': (item.FechaCreacion).slice(0, 10), 'Estado': item.Pagado ? 'Pagado' : 'Pendiente', 'Vendedor': item.Vendedor,  'Cliente': item.Cliente.Nombre, 'Total': '$ '+total }
+}
 
 export const ClientesAdaptarDG = (item) => {
   return { 'id': item.ID, 'Nombre': item.Nombre, 'Cedula': item.Cedula, 'Direccion': item.Direccion }
+}
+
+export const HistorialesAdaptarDG = (item) => {
+  return { 'id': item.ID, 'Fecha': item.Fecha.slice(0, 10), 'Descripcion': item.Descripcion, 'Cliente': item.Cliente.Nombre, 'SaldoPagado': item.SaldoPagado, 'Cobrador': item.Vendedor }
+}
+
+export const CuentasAdaptarDG = (item) => {
+  return { 'id': item.ID, 'Fecha': item.Fecha.slice(0, 10), 'Descripcion': item.Descripcion, 'Cliente': item.Cliente.Nombre, 'SaldoPagado': item.SaldoPagado, 'SaldoPendiente': item.SaldoPendiente, 'Cobrador': item.Vendedor }
 }
 
 export const ProveedoresAdaptarDG = (item) => {

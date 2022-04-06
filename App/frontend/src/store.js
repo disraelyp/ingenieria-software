@@ -10,9 +10,13 @@ import productosReducer from './Reducers/productosReducer'
 import pedidosReducer from './Reducers/pedidosReducer'
 import proveedoresReducer from './Reducers/proveedoresReducer'
 import clientesReducer from './Reducers/clientesReducer'
+import historialPagosReducer from './Reducers/historialPagos'
+import devolucionesReducer from './Reducers/devolucionesReducer'
 
 const reducer = combineReducers({
   user: loginReducer,
+  devoluciones: devolucionesReducer,
+  historialPagos: historialPagosReducer,
   notificaciones: notificacionReducer,
   productos: productosReducer,
   pedidos: pedidosReducer,

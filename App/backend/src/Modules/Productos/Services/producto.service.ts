@@ -83,12 +83,12 @@ export class ProductoService {
     return await this.productoRP.findOne(productoIngresado.ID, { relations: ['Precios'] })
   }
 
-  async updateCantidad(id: number, object: any) {
+  async updateCantidad(id: any, object: any) {
 
     if(validateToken(object,  ['Administrador', 'Almacenista']) === false) {
       return { message: 'token missing or invalid', error: 401 }
     }
-    const producto =await this.productoRP.findOne(id)
+    const producto =await this.productoRP.findOne(parseInt(id))
     if(!producto){
       return { message: 'Ingrese un ID valido', error: 401 }
     }

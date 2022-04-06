@@ -7,6 +7,7 @@ import { initializeUsuarios } from './Reducers/usuariosReducer'
 import { initializeProductos } from './Reducers/productosReducer'
 import { initializeClientes } from './Reducers/clientesReducer'
 import { initializeProveedores } from './Reducers/proveedoresReducer'
+import { initializeHistorialPagos } from './Reducers/historialPagos'
 import { AppBar, Container, Box, CssBaseline, Drawer, IconButton, Toolbar, Typography } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import Menu from './Components/Menu'
@@ -19,8 +20,13 @@ import { Producto, Productos, ProductoCreate, ProductoUpdate } from './Component
 import { Proveedor, Proveedores, ProveedorCreate, ProveedorUpdate } from './Components/Modules/Proveedores'
 import { Usuario, Usuarios, UsuarioCreate, UsuarioUpdate } from './Components/Modules/Usuarios'
 
-import { Pedidos, PedidoCreate } from './Components/Modules/Pedidos'
+import { Pedidos, PedidoCreate, Pedido, PedidoUpdate } from './Components/Modules/Pedidos'
+import { Devolucion, DevolucionCreate, Devoluciones } from './Components/Modules/Devoluciones'
+import { HistorialPagos } from './Components/Modules/HistorialPagos'
+import { NotasCredito } from './Components/Modules/NotasCredito'
 import { initializePedidos } from './Reducers/pedidosReducer'
+import { initializeDevoluciones } from './Reducers/devolucionesReducer'
+import CuentasCobrar from './Components/Modules/CuentasCobrar/CuentasCobrar'
 
 const App = (props) => {
 
@@ -35,6 +41,9 @@ const App = (props) => {
     dispatch(initializePedidos())
     dispatch(initializeProveedores())
     dispatch(initializeClientes())
+    dispatch(initializeHistorialPagos())
+    dispatch(initializeHistorialPagos())
+    dispatch(initializeDevoluciones())
     const user = storage.loadUser()
     if (user) {
       dispatch(login(user))
@@ -144,6 +153,31 @@ const App = (props) => {
             <Route exact path='/Facturacion/Pedidos'>
               <Pedidos />
             </Route>
+            <Route exact path='/Facturacion/Pedidos/Ver/:id'>
+              <Pedido />
+            </Route>
+            <Route exact path='/Facturacion/Pedidos/Editar/:id'>
+              <PedidoUpdate />
+            </Route>
+            <Route exact path='/Facturacion/Devoluciones'>
+              <Devoluciones />
+            </Route>
+            <Route exact path='/Facturacion/Devoluciones/Crear'>
+              <DevolucionCreate />
+            </Route>
+            <Route exact path='/Facturacion/Devoluciones/Ver/:id'>
+              <Devolucion />
+            </Route>
+            <Route exact path='/CuentasClientes/Historial'>
+              <HistorialPagos />
+            </Route>
+            <Route exact path='/CuentasClientes/Notas'>
+              <NotasCredito />
+            </Route>
+            <Route exact path='/CuentasClientes/Cuentas'>
+              <CuentasCobrar />
+            </Route>
+
           </Switch>
         </Box>
       </Box>

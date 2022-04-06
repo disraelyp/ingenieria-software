@@ -8,7 +8,7 @@ import FormHelperText from '@mui/material/FormHelperText'
 import { selectFieldVariant } from '../../Styles/muiVariants'
 
 
-const SelectInput = ({ label, text, onChange, onFocus, onBlur, value, options, error, errorMessage, disable, moreSx }) => {
+const SelectInput = ({ label, text, onChange, onClick, onFocus, onBlur, value, options, error, errorMessage, disable, moreSx }) => {
 
   if(value === 0){
     if(!options.find(op => op.value === 0)){
@@ -25,6 +25,7 @@ const SelectInput = ({ label, text, onChange, onFocus, onBlur, value, options, e
         value={value}
         label={ label }
         onChange={onChange}
+        onClick={onClick}
         sx={ error ? { color: 'red' } : { color: 'black' } }
         disabled = { disable ? true : false }
         error = { error ? true : false }

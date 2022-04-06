@@ -26,8 +26,22 @@ import { PrecioEntity } from '../Precios/Entity/precio-entity'
 import { ProductoPedidoModule } from '../ProductosPedido/producto-pedido.module'
 import { ProductoPedidoEntity } from '../ProductosPedido/Entity/producto-pedido.entity'
 
+// PEDIDOS
 import { PedidoModule } from '../Pedidos/pedido.module'
 import { PedidoEntity } from '../Pedidos/Entity/pedido.entity'
+
+// HISTORIAL DE PAGOS
+import { historialPagoModule } from '../HistorialPagos/historial-pago.module'
+import { historialPagoEntity } from '../HistorialPagos/Entity/historialPago-entity'
+
+// DEVOLUCIONES
+import { DevolucionEntity } from '../Devoluciones/Entity/devolucion.entity'
+import { DevolucionModule } from '../Devoluciones/devolucion.module'
+
+// PRODUCTOS-DEVOLUCION
+
+import { ProductoDevolucionEntity } from '../ProductosDevolucion/Entity/producto-devolucion.entity'
+import { ProductoDevolucionModule } from '../ProductosDevolucion/producto-devolucion.module'
 
 const dotenv = require('dotenv')
 dotenv.config()
@@ -42,10 +56,10 @@ dotenv.config()
       password: process.env.DB_PASS,
       database: process.env.DB_NAME,
       entities:[
-        UsuarioEntity, ProductoEntity, ProveedorEntity, ClienteEntity, PrecioEntity, ProductoPedidoEntity, PedidoEntity
+        historialPagoEntity, DevolucionEntity, UsuarioEntity, ProductoEntity, ProveedorEntity, ClienteEntity, PrecioEntity, ProductoPedidoEntity, PedidoEntity, ProductoDevolucionEntity
 			 ],
     }),
-    UsuariosModule, ProductosModule, ProveedoresModule, ClientesModule, PrecioModule, ProductoPedidoModule, PedidoModule
+    historialPagoModule, DevolucionModule, ProductoDevolucionModule, UsuariosModule, ProductosModule, ProveedoresModule, ClientesModule, PrecioModule, ProductoPedidoModule, PedidoModule
   ]
 })
 export class DatabaseModule {

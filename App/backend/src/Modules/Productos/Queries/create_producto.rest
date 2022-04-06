@@ -3,8 +3,8 @@ Content-Type: application/json
 
 {
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6MSwiTm9tYnJlIjoiTGVzbGllIiwiVXN1YXJpbyI6Imxlc2xpZSIsIlJvbGUiOiJBZG1pbmlzdHJhZG9yIiwiQWN0aXZvIjp0cnVlLCJpYXQiOjE2NDUwMjcwMzR9.2AW-l7m-ZXpk_1oFRXphAukyL4sk487SOxnq_6uNKoc",
-    "CodigoBarra": "A-0002",
-    "Descripcion": "Producto de prueba 2",
+    "CodigoBarra": "A-0001",
+    "Descripcion": "Producto de prueba 1",
     "Categoria": "Golosinas",
     "Origen": "Nacional",
     "Costo": 100,

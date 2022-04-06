@@ -8,7 +8,7 @@ import { initializeClientes } from './../../../Reducers/clientesReducer'
 import { Grid } from '@mui/material'
 import TextInput from './../../athomic-components/TextInput'
 import Button from './../../athomic-components/Button'
-import { nombreValidate } from './../../../Utils/validaciones'
+import { direccionValidate, nombreValidate, telefonoValidate } from './../../../Utils/validaciones'
 import { updateTitulo } from './../../../Reducers/tituloReducer'
 import { oneLine } from './../../../Styles/breakPoints'
 import { inputForm, itemForm } from './../../../Styles/gridForm'
@@ -24,8 +24,8 @@ const ClienteCreate = () => {
 
   const Cedula = useField('text', '', nombreValidate)
   const Nombre = useField('text', '', nombreValidate)
-  const Telefono = useField('text', '', nombreValidate)
-  const Direccion = useField('text', '', nombreValidate)
+  const Telefono = useField('text', '', telefonoValidate)
+  const Direccion = useField('text', '', direccionValidate)
 
   const createErrorMessage = (message) => {
     switch (true) {

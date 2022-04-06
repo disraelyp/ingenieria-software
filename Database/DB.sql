@@ -1,6 +1,11 @@
 create database ingenieriasoftware;
 use ingenieriasoftware;
 
+select * from pedido;
+select * from `historial-pago`;
+select * from `producto-pedido`;
+select * from devolucion;
+select * from `producto-devolucion`;
 
 # ENTIDAD: USUARIO
 create table if not exists `usuario` (
@@ -94,4 +99,48 @@ create table if not exists `producto-pedido` (
     primary key(`ID`),
     foreign key (`pedidoID`) references `pedido`(`ID`) on delete cascade,
     foreign key (`productoID`) references `producto`(`ID`) on delete cascade
+) ENGINE=INNODB;
+
+# ENTIDAD: DEVOLCION
+create table if not exists `devolucion` (
+    `ID` int auto_increment not null comment 'Clave primaria',
+    `FechaCreacion` date not null comment 'Fecha creacion de la devolucion',
+    `Pagado` boolean not null comment 'Estado de pago de la devolucion',
+    `Vendedor` varchar(50) not null comment 'Vendedor de la devolucion',
+    `clienteID` int not null comment 'Cliente de la devolucion', 
+    primary key(`ID`)
+) ENGINE=INNODB;
+
+# ENTIDAD: PRODUCTO-DEVOLUCION
+create table if not exists `producto-devolucion` (
+    `ID` int auto_increment not null comment 'Clave primaria',
+    `FechaCreacion` date not null comment 'Fecha creacion del producto-devolucion',
+    `CodigoBarra` varchar(50) not null comment 'Identificador propio de los producto-devolucion',
+    `Descripcion` varchar(50) not null comment 'Descripcion del producto-devolucion',
+    `Cantidad` float not null comment 'Cantidad del producto-devolucion',
+    `Precio` float not null comment 'Precio del producto-devolucion',
+    `Costo` float not null comment 'Costo del producto-devolucion',
+    `Impuesto` float not null comment 'Impuesto del producto-devolucion',
+    `productoID` int not null comment 'Relacion con el producto', 
+    `devolucionID` int not null comment 'Relacion con la devolucion',   
+    primary key(`ID`),
+    foreign key (`devolucionID`) references `devolucion`(`ID`) on delete cascade,
+    foreign key (`productoID`) references `producto`(`ID`) on delete cascade
+) ENGINE=INNODB;
+
+
+# ENTIDAD: historialPagos
+create table if not exists `historial-pago` (
+    `ID` int auto_increment not null comment 'Clave primaria',
+    `Fecha` date not null comment 'Fecha creacion del pago',
+    `Descripcion` varchar(500) not null comment 'Vendedor del pedido',
+    `Termino` int not null comment 'Terminos de la deuda',
+    `PagoMinimo` float not null comment 'Terminos de la deuda',
+    `SaldoPendiente` float not null comment 'Terminos de la deuda',
+    `SaldoPagado` float not null comment 'Terminos de la deuda',
+    `Pendiente` boolean not null comment 'Terminos de la deuda',
+    `Vendedor` varchar(50) not null comment 'Vendedor del pedido',
+    `clienteID` int not null comment 'Cliente de la deduda', 
+    `pedidoID` int not null comment 'Pedido de la deuda', 
+    primary key(`ID`)
 ) ENGINE=INNODB;

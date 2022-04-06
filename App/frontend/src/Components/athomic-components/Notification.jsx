@@ -5,10 +5,6 @@ import { notificationSeverity, notificationVariant } from '../../Styles/muiVaria
 
 const Notification = ({ severity, message, moreSx }) => {
 
-  if(!severity) {
-    console.log('La severidad de la notificacion es requerida')
-  }
-
   return (
     <Alert sx={moreSx ? moreSx : { width: '100%', marginTop: 2.5 }} variant={notificationVariant[0]} severity={notificationSeverity[severity]}>
       { message }

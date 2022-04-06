@@ -20,7 +20,6 @@ import PointOfSaleIcon from '@mui/icons-material/PointOfSale'
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet'
 import MenuBookIcon from '@mui/icons-material/MenuBook'
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong'
-import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket'
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout'
 import AddBusinessIcon from '@mui/icons-material/AddBusiness'
 import MoneyOffIcon from '@mui/icons-material/MoneyOff'
@@ -29,6 +28,8 @@ import MoveToInboxIcon from '@mui/icons-material/MoveToInbox'
 import StorefrontIcon from '@mui/icons-material/Storefront'
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
+import PaidIcon from '@mui/icons-material/Paid'
+import NoteIcon from '@mui/icons-material/Note'
 
 const Item = ({ text, icon, link }) => {
 
@@ -90,8 +91,13 @@ const Menu = () => {
 
   const Facturacion = [
     { ID: 1, Text: 'Pedidos', Icon: <ShoppingCartCheckoutIcon />, Link: '/Facturacion/Pedidos' },
-    { ID: 2, Text: 'Facturas', Icon: <ShoppingBasketIcon />, Link: '/Facturacion/Facturas' },
-    { ID: 3, Text: 'Devoluciones', Icon: <MoneyOffIcon />, Link: '/Facturacion/Devoluciones' },
+    { ID: 2, Text: 'Devoluciones', Icon: <MoneyOffIcon />, Link: '/Facturacion/Devoluciones' },
+  ]
+
+  const CuentasCliente = [
+    { ID: 1, Text: 'Notas de credito', Icon: <NoteIcon />, Link: '/CuentasClientes/Notas' },
+    { ID: 2, Text: 'Cuentas por cobrar', Icon: <PointOfSaleIcon />, Link: '/CuentasClientes/Cuentas' },
+    { ID: 3, Text: 'Historial de pagos', Icon: <PaidIcon />, Link: '/CuentasClientes/Historial' },
   ]
 
   const Inventario = [
@@ -110,7 +116,7 @@ const Menu = () => {
       <Item text={'Inicio'} icon={ <StorefrontIcon /> }/>
       <Divider />
       <GroupItem text={'Facturacion'} data={Facturacion} icon={ <ShoppingCartIcon /> }/>
-      <Item text={'Cuentas por cobrar'} icon={ <PointOfSaleIcon /> }/>
+      <GroupItem text={'Estado de pagos'} data={CuentasCliente} icon={ <PointOfSaleIcon /> }/>
       <Divider />
       <GroupItem text={'Inventario'} data={Inventario}  icon={ <InventoryIcon /> }/>
       <Item text={'Cuentas por pagar'} icon={ <AccountBalanceWalletIcon /> }/>
