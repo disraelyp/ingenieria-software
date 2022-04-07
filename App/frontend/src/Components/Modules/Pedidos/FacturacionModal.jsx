@@ -115,7 +115,6 @@ const FacturacionModal = ({ setOpenFacturacionModal, pedidoSeleccionado }) => {
       TotalPagar.functions.setValue(totalFinal())
     } else {
       if(TotalPagar.functions.isValidate() && Metodo.functions.isValidate()){
-        console.log(Metodo.form.value)
         const nuevoPago = {
           Descripcion: 'Facturacion y envio a domicilio de un nuevo pedido',
           Termino: Metodo.form.value,

@@ -1,15 +1,8 @@
-POST http://localhost:3001/Compras
+POST http://localhost:3001/CompraEstado
 Content-Type: application/json
 
 {
-    "Comprador": "Disraely",
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6MSwiTm9tYnJlIjoiTGVzbGllIiwiVXN1YXJpbyI6Imxlc2xpZSIsIlJvbGUiOiJBZG1pbmlzdHJhZG9yIiwiQWN0aXZvIjp0cnVlLCJpYXQiOjE2NDUwMjcwMzR9.2AW-l7m-ZXpk_1oFRXphAukyL4sk487SOxnq_6uNKoc",
-    "Proveedor": 1,
-    "Productos": [
-        {
-            "Producto": 1,
-            "Cantidad": 1000,
-            "Costo": 2000,
-        }
-    ]
+    "ID": 12,
+    "Pagado": true
 }

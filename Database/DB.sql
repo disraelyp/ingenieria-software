@@ -53,7 +53,7 @@ create table if not exists `producto` (
     `FechaModificacion` date not null comment 'Ultima fecha de modificacion del producto',
     `Categoria` varchar(50) not null comment 'Categoria del producto',
     `Origen` varchar(50) not null comment 'Categoria del producto',
-    `Costo` varchar(50) not null comment 'Costo del producto',
+    `Costo` float not null comment 'Costo del producto',
     `Activo` boolean not null comment 'Estado del producto',
     primary key(`ID`),
     unique key `CodigoBarra`(`CodigoBarra`)

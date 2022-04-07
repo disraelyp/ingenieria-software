@@ -204,4 +204,25 @@ export class ProductoService {
     }
     return { Message: 'Ingrese un ID valido', error: 401 }
   }
+
+  async changeCosto(id: any, object: any) {
+
+    if(validateToken(object,  ['Administrador']) === false) {
+      return { message: 'token missing or invalid', error: 401 }
+    }
+
+    if(!object.Costo || typeof object.Costo !== 'number') {
+      return { message: 'Ingrese un costo inicial', error: 401 }
+    }
+
+    const producto = await this.productoRP.findOne(id)
+    // VERIFICACION DEL ID
+    if(!producto) {
+      return { message: 'Ingrese un ID valido', error: 401 }
+    }
+
+    await this.productoRP.update(parseInt(id), { Costo: object.Costo })
+    return await this.productoRP.findOne(id, { relations: ['Precios'] })
+
+  }
 }

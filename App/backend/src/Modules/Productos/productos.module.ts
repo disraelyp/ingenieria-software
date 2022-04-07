@@ -6,13 +6,14 @@ import { ProductoService } from './Services/producto.service'
 import { ProductoEntity } from './Entity/producto-entity'
 import { ProductosController } from './Controller/producto.controller'
 import { CantidadProductoController } from './Controller/cantidadProducto.controller'
+import { CostoProductoController } from './Controller/costoProducto.controller'
 
 @Module({
   imports:[
     TypeOrmModule.forFeature([ProductoEntity])
   ],
   controllers: [
-    ProductosController, CantidadProductoController
+    ProductosController, CantidadProductoController, CostoProductoController
   ],
   providers:[
     ProductoService

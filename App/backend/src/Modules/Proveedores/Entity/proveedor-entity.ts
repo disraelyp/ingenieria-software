@@ -1,4 +1,5 @@
-import  { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
+import { CompraEntity } from 'src/Modules/Compras/Entity/compra.entity'
+import  { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
 
 @Entity('proveedor')
 export class ProveedorEntity {
@@ -19,4 +20,8 @@ export class ProveedorEntity {
 
     @Column()
       Activo: boolean
+
+    @OneToMany(() => CompraEntity, compraProveedor => compraProveedor.Proveedor)
+      Compras: CompraEntity[]
+
 }
