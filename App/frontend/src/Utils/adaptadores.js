@@ -13,6 +13,12 @@ export const PedidosAdaptarDG = (item) => {
   return { 'id': item.ID, 'Fecha': (item.FechaCreacion).slice(0, 10), 'Estado': item.Pagado ? 'Pagado' : 'Pendiente', 'UltimaModificacion': item.FechaModificacion.slice(0, 10), 'Vendedor': item.Vendedor,  'Cliente': item.Cliente.Nombre, 'Etapa': item.Estado, 'Total': '$ '+total }
 }
 
+export const ComprasAdaptarDG = (item) => {
+  let total = 0
+  item.Productos.map(producto => total += producto.Cantidad * producto.Costo)
+  return { 'id': item.ID, 'Termino': item.Termino, 'Fecha': (item.FechaCreacion).slice(0, 10), 'Estado': item.Pagado ? 'Pagado' : 'Pendiente', 'Comprador': item.Comprador,  'Proveedor': item.Proveedor.Nombre, 'Total': '$ '+total }
+}
+
 export const DevolucionesAdaptarDG = (item) => {
   let total = 0
   item.Productos.map(producto => total += producto.Cantidad * (producto.Precio + producto.Impuesto))

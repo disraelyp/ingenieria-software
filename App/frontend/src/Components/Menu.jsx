@@ -97,13 +97,19 @@ const Menu = () => {
   const CuentasCliente = [
     { ID: 1, Text: 'Notas de credito', Icon: <NoteIcon />, Link: '/CuentasClientes/Notas' },
     { ID: 2, Text: 'Cuentas por cobrar', Icon: <PointOfSaleIcon />, Link: '/CuentasClientes/Cuentas' },
-    { ID: 3, Text: 'Historial de pagos', Icon: <PaidIcon />, Link: '/CuentasClientes/Historial' },
+    { ID: 3, Text: 'Historial de cobros', Icon: <PaidIcon />, Link: '/CuentasClientes/Historial' },
+  ]
+
+  const CuentasProveedores = [
+    { ID: 1, Text: 'Notas de debito', Icon: <NoteIcon />, Link: '/CuentasProveedores/Notas' },
+    { ID: 2, Text: 'Cuentas por pagar', Icon: <PaidIcon />, Link: '/CuentasProveedores/Cuentas' },
+    { ID: 3, Text: 'Historial de pagos', Icon: <PointOfSaleIcon />, Link: '/CuentasProveedores/Historial' },
   ]
 
   const Inventario = [
     { ID: 1, Text: 'Productos', Icon: <InventoryIcon />, Link: '/Inventario/Productos' },
-    { ID: 2, Text: 'Ordenes de Compras', Icon: <ReceiptLongIcon />, Link: '/Inventario/Ordenes' },
-    { ID: 3, Text: 'Notas de creditos', Icon: <AttachMoneyIcon />, Link: '/Inventario/Notas' },
+    { ID: 2, Text: 'Ordenes de Compras', Icon: <ReceiptLongIcon />, Link: '/Inventario/Compras' },
+    { ID: 3, Text: 'Notas de debito', Icon: <AttachMoneyIcon />, Link: '/Inventario/Notas' },
   ]
 
   const Reportes = [
@@ -116,10 +122,10 @@ const Menu = () => {
       <Item text={'Inicio'} icon={ <StorefrontIcon /> }/>
       <Divider />
       <GroupItem text={'Facturacion'} data={Facturacion} icon={ <ShoppingCartIcon /> }/>
-      <GroupItem text={'Estado de pagos'} data={CuentasCliente} icon={ <PointOfSaleIcon /> }/>
+      <GroupItem text={'Cuentas por cobrar'} data={CuentasCliente} icon={ <PointOfSaleIcon /> }/>
       <Divider />
       <GroupItem text={'Inventario'} data={Inventario}  icon={ <InventoryIcon /> }/>
-      <Item text={'Cuentas por pagar'} icon={ <AccountBalanceWalletIcon /> }/>
+      <GroupItem text={'Cuentas por pagar'} data={CuentasProveedores} icon={ <AccountBalanceWalletIcon /> }/>
       <Divider />
       <GroupItem text={'Reportes'} data={Reportes}  icon={ <MenuBookIcon /> }/>
       <Item text={'Usuarios'} icon={ <FaceIcon /> } link={'/Usuarios'}/>

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 export const nombreValidate = (value) => {
   if(value === '' || value.includes(' ')) {
     return 'Ingrese un valor válido'
@@ -240,5 +241,9 @@ export const metodoPagoValidate = (value) => {
   if (value <= 0) {
     return 'Ingrese un metodo de pago valido'
   }
+  return null
+}
+
+export const terminoPagoValidate = (value) => {
   return null
 }

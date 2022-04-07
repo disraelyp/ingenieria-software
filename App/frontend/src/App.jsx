@@ -22,11 +22,15 @@ import { Usuario, Usuarios, UsuarioCreate, UsuarioUpdate } from './Components/Mo
 
 import { Pedidos, PedidoCreate, Pedido, PedidoUpdate } from './Components/Modules/Pedidos'
 import { Devolucion, DevolucionCreate, Devoluciones } from './Components/Modules/Devoluciones'
+import { Compra, Compras, CompraCreate } from './Components/Modules/Compras'
 import { HistorialPagos } from './Components/Modules/HistorialPagos'
 import { NotasCredito } from './Components/Modules/NotasCredito'
 import { initializePedidos } from './Reducers/pedidosReducer'
 import { initializeDevoluciones } from './Reducers/devolucionesReducer'
+import { initializeCompras } from './Reducers/comprasReducer'
 import CuentasCobrar from './Components/Modules/CuentasCobrar/CuentasCobrar'
+import CuentasPagar from './Components/Modules/CuentasPagar/CuentasPagar'
+import HistorialCobros from './Components/Modules/HistoralCobros/HistorialCobros'
 
 const App = (props) => {
 
@@ -44,6 +48,7 @@ const App = (props) => {
     dispatch(initializeHistorialPagos())
     dispatch(initializeHistorialPagos())
     dispatch(initializeDevoluciones())
+    dispatch(initializeCompras())
     const user = storage.loadUser()
     if (user) {
       dispatch(login(user))
@@ -106,8 +111,6 @@ const App = (props) => {
             <Route exact path='/Clientes/Editar/:id'>
               <ClienteUpdate />
             </Route>
-
-
             <Route exact path='/Inventario/Productos'>
               <Productos />
             </Route>
@@ -120,7 +123,15 @@ const App = (props) => {
             <Route exact path='/Inventario/Productos/Editar/:id'>
               <ProductoUpdate />
             </Route>
-
+            <Route exact path='/Inventario/Compras'>
+              <Compras />
+            </Route>
+            <Route exact path='/Inventario/Compras/Crear'>
+              <CompraCreate />
+            </Route>
+            <Route exact path='/Inventario/Compras/Ver/:id'>
+              <Compra />
+            </Route>
             <Route exact path='/Proveedores'>
               <Proveedores />
             </Route>
@@ -133,7 +144,6 @@ const App = (props) => {
             <Route exact path='/Proveedores/Editar/:id'>
               <ProveedorUpdate />
             </Route>
-
             <Route exact path='/Usuarios'>
               <Usuarios />
             </Route>
@@ -146,7 +156,6 @@ const App = (props) => {
             <Route exact path='/Usuarios/Editar/:id'>
               <UsuarioUpdate />
             </Route>
-
             <Route exact path='/Facturacion/Pedidos/Crear'>
               <PedidoCreate />
             </Route>
@@ -176,6 +185,17 @@ const App = (props) => {
             </Route>
             <Route exact path='/CuentasClientes/Cuentas'>
               <CuentasCobrar />
+            </Route>
+
+
+            <Route exact path='/CuentasProveedores/Historial'>
+              <HistorialCobros />
+            </Route>
+            <Route exact path='/CuentasProveedores/Notas'>
+              <NotasCredito />
+            </Route>
+            <Route exact path='/CuentasProveedores/Cuentas'>
+              <CuentasPagar />
             </Route>
 
           </Switch>

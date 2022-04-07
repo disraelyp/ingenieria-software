@@ -23,6 +23,14 @@ export const ProductoModalColumns = [
   { field: 'Precio', headerName: 'Precio', minWidth: 100, flex: 1  },
 ]
 
+export const ProductoCompraModalColumns = [
+  { field: 'CodigoBarra', headerName: 'Codigo Barra', width: 150 },
+  { field: 'Descripcion', headerName: 'Descripcion', minWidth: 100, flex: 1  },
+  { field: 'Cantidad', headerName: 'Cantidad', minWidth: 50, flex: 1  },
+  { field: 'Categoria', headerName: 'Categoria', minWidth: 100, flex: 1  },
+  { field: 'Costo', headerName: 'Costo', minWidth: 100, flex: 1  },
+]
+
 export const PedidosColumns = [
   { field: 'id', headerName: 'ID', width: 150 },
   { field: 'Fecha', headerName: 'Fecha', width: 150 },
@@ -40,6 +48,16 @@ export const DevolucionesColumns = [
   { field: 'Cliente', headerName: 'Cliente', minWidth: 100, flex: 1  },
   { field: 'Estado', headerName: 'Estado', minWidth: 100, flex: 1  },
   { field: 'Vendedor', headerName: 'Vendedor', minWidth: 50, flex: 1  },
+  { field: 'Total', headerName: 'Total', minWidth: 100, flex: 1  },
+]
+
+export const ComprasColumns = [
+  { field: 'id', headerName: 'ID', width: 150 },
+  { field: 'Fecha', headerName: 'Fecha', width: 150 },
+  { field: 'Comprador', headerName: 'Comprador', minWidth: 100, flex: 1  },
+  { field: 'Termino', headerName: 'Termino', minWidth: 100, flex: 1  },
+  { field: 'Estado', headerName: 'Estado', minWidth: 100, flex: 1  },
+  { field: 'Proveedor', headerName: 'Proveedor', minWidth: 50, flex: 1  },
   { field: 'Total', headerName: 'Total', minWidth: 100, flex: 1  },
 ]
 
@@ -82,5 +100,13 @@ export const PedidoCreateColumns = [
   { field: 'Cantidad', headerName: 'Cantidad', minWidth: 100, flex: 1  },
   { field: 'Precio', headerName: 'Precio', minWidth: 100, flex: 1  },
   { field: 'Impuesto', headerName: 'Impuesto', minWidth: 50, flex: 1  },
+  { field: 'Total', headerName: 'Total', minWidth: 100, flex: 1  },
+]
+
+export const CompraCreateColumns = [
+  { field: 'Codigo', headerName: 'Codigo', width: 150 },
+  { field: 'Descripcion', headerName: 'Descripcion', minWidth: 100, flex: 1  },
+  { field: 'Cantidad', headerName: 'Cantidad', minWidth: 100, flex: 1  },
+  { field: 'Costo', headerName: 'Costo', minWidth: 100, flex: 1  },
   { field: 'Total', headerName: 'Total', minWidth: 100, flex: 1  },
 ]
