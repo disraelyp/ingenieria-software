@@ -13,9 +13,11 @@ import clientesReducer from './Reducers/clientesReducer'
 import historialPagosReducer from './Reducers/historialPagos'
 import devolucionesReducer from './Reducers/devolucionesReducer'
 import comprasReducer from './Reducers/comprasReducer'
+import notaDebitoReducer from './Reducers/notaDebitoReducer'
 
 const reducer = combineReducers({
   user: loginReducer,
+  notasDebito: notaDebitoReducer,
   devoluciones: devolucionesReducer,
   compras: comprasReducer,
   historialPagos: historialPagosReducer,

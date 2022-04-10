@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
-import { ProductoPedidoController } from './Controller/producto-pedido.controller'
+import { ProductoDevolucionController } from './Controller/producto-pedido.controller'
 import { ProductoDevolucionEntity } from './Entity/producto-devolucion.entity'
 import { ProductoDevolucionService } from './Services/producto-devolucion.service'
 
@@ -10,7 +10,7 @@ import { ProductoDevolucionService } from './Services/producto-devolucion.servic
     TypeOrmModule.forFeature([ProductoDevolucionEntity])
   ],
   controllers: [
-    ProductoPedidoController
+    ProductoDevolucionController
   ],
   providers:[
     ProductoDevolucionService

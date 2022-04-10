@@ -1,4 +1,5 @@
 import { CompraEntity } from 'src/Modules/Compras/Entity/compra.entity'
+import { NotaDebitoEntity } from 'src/Modules/NotaDebito/Entity/nota-debito.entity'
 import  { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
 
 @Entity('proveedor')
@@ -23,5 +24,8 @@ export class ProveedorEntity {
 
     @OneToMany(() => CompraEntity, compraProveedor => compraProveedor.Proveedor)
       Compras: CompraEntity[]
+
+    @OneToMany(() => NotaDebitoEntity, compraProveedor => compraProveedor.Proveedor)
+      NotaDebito: NotaDebitoEntity[]
 
 }

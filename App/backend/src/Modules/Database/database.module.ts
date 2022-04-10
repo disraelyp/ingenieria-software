@@ -51,6 +51,14 @@ import { ProductoCompraModule } from '../ProductosCompras/producto-compras.modul
 import { CompraEntity } from '../Compras/Entity/compra.entity'
 import { ComprasModule } from '../Compras/compra.module'
 
+// NOTA DE DEBITO
+import { NotaDebitoModule } from '../NotaDebito/nota-debito.module'
+import { NotaDebitoEntity } from '../NotaDebito/Entity/nota-debito.entity'
+
+
+// PRODUCTO-NOTA-DEBITO
+import { ProductoNotaDebitoModule } from '../ProductosNotaDebito/producto-nota-debito.module'
+import { ProductoNotaDebitoEntity } from '../ProductosNotaDebito/Entity/producto-nota-debito.entity'
 
 
 const dotenv = require('dotenv')
@@ -66,10 +74,10 @@ dotenv.config()
       password: process.env.DB_PASS,
       database: process.env.DB_NAME,
       entities:[
-        historialPagoEntity, CompraEntity, ProductoCompraEntity, DevolucionEntity, UsuarioEntity, ProductoEntity, ProveedorEntity, ClienteEntity, PrecioEntity, ProductoPedidoEntity, PedidoEntity, ProductoDevolucionEntity
+        historialPagoEntity, ProductoNotaDebitoEntity, NotaDebitoEntity, CompraEntity, ProductoCompraEntity, DevolucionEntity, UsuarioEntity, ProductoEntity, ProveedorEntity, ClienteEntity, PrecioEntity, ProductoPedidoEntity, PedidoEntity, ProductoDevolucionEntity
 			 ],
     }),
-    historialPagoModule, ProductoCompraModule, ComprasModule, DevolucionModule, ProductoDevolucionModule, UsuariosModule, ProductosModule, ProveedoresModule, ClientesModule, PrecioModule, ProductoPedidoModule, PedidoModule
+    historialPagoModule, ProductoNotaDebitoModule, NotaDebitoModule, ProductoCompraModule, ComprasModule, DevolucionModule, ProductoDevolucionModule, UsuariosModule, ProductosModule, ProveedoresModule, ClientesModule, PrecioModule, ProductoPedidoModule, PedidoModule
   ]
 })
 export class DatabaseModule {

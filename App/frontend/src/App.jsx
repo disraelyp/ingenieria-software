@@ -23,11 +23,13 @@ import { Usuario, Usuarios, UsuarioCreate, UsuarioUpdate } from './Components/Mo
 import { Pedidos, PedidoCreate, Pedido, PedidoUpdate } from './Components/Modules/Pedidos'
 import { Devolucion, DevolucionCreate, Devoluciones } from './Components/Modules/Devoluciones'
 import { Compra, Compras, CompraCreate } from './Components/Modules/Compras'
+import { NotaDebito, NotaDebitoCreate, NotasDebito } from './Components/Modules/NotaDebito'
 import { HistorialPagos } from './Components/Modules/HistorialPagos'
 import { NotasCredito } from './Components/Modules/NotasCredito'
 import { initializePedidos } from './Reducers/pedidosReducer'
 import { initializeDevoluciones } from './Reducers/devolucionesReducer'
 import { initializeCompras } from './Reducers/comprasReducer'
+import { initializeNotaDebito } from './Reducers/notaDebitoReducer'
 import CuentasCobrar from './Components/Modules/CuentasCobrar/CuentasCobrar'
 import CuentasPagar from './Components/Modules/CuentasPagar/CuentasPagar'
 import HistorialCobros from './Components/Modules/HistoralCobros/HistorialCobros'
@@ -49,6 +51,7 @@ const App = (props) => {
     dispatch(initializeHistorialPagos())
     dispatch(initializeDevoluciones())
     dispatch(initializeCompras())
+    dispatch(initializeNotaDebito())
     const user = storage.loadUser()
     if (user) {
       dispatch(login(user))
@@ -132,6 +135,18 @@ const App = (props) => {
             <Route exact path='/Inventario/Compras/Ver/:id'>
               <Compra />
             </Route>
+
+            <Route exact path='/Inventario/Notas'>
+              <NotasDebito />
+            </Route>
+            <Route exact path='/Inventario/Notas/Crear'>
+              <NotaDebitoCreate />
+            </Route>
+            <Route exact path='/Inventario/Notas/Ver/:id'>
+              <NotaDebito />
+            </Route>
+
+
             <Route exact path='/Proveedores'>
               <Proveedores />
             </Route>

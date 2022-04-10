@@ -5,7 +5,12 @@ select * from pedido;
 select * from `historial-pago`;
 select * from `producto-pedido`;
 select * from devolucion;
+select * from compra;
+select * from producto;
 select * from `producto-devolucion`;
+select * from `producto-compra`;
+select * from `producto-nota-debito`;
+select * from `nota-debito`;
 
 # ENTIDAD: USUARIO
 create table if not exists `usuario` (
@@ -127,6 +132,37 @@ create table if not exists `producto-devolucion` (
     foreign key (`devolucionID`) references `devolucion`(`ID`) on delete cascade,
     foreign key (`productoID`) references `producto`(`ID`) on delete cascade
 ) ENGINE=INNODB;
+
+
+# ENTIDAD: NOTA-DEBITO
+create table if not exists `nota-debito` (
+    `ID` int auto_increment not null comment 'Clave primaria',
+    `FechaCreacion` date not null comment 'Fecha creacion de la compra',
+    `Comprador` varchar(50) not null comment 'Vendedor de la compra',
+    `proveedorID` int not null comment 'Proveedor de la compra', 
+    primary key(`ID`),
+    foreign key (`proveedorID`) references `proveedor`(`ID`) on delete cascade
+) ENGINE=INNODB;
+
+# ENTIDAD: PRODUCTO-NOTA-DEBITO
+create table if not exists `producto-nota-debito` (
+    `ID` int auto_increment not null comment 'Clave primaria',
+    `FechaCreacion` date not null comment 'Fecha creacion del producto-nota-debito',
+    `CodigoBarra` varchar(50) not null comment 'Identificador propio de los producto-nota-debito',
+    `Descripcion` varchar(50) not null comment 'Descripcion del producto-nota-debito',
+    `Cantidad` float not null comment 'Cantidad del producto-nota-debito',
+    `Costo` float not null comment 'Costo del producto-nota-debito',
+    `productoID` int not null comment 'Relacion con el producto', 
+    `notaDebitoID` int not null comment 'Relacion con la nota-debito',   
+    primary key(`ID`),
+    foreign key (`notaDebitoID`) references `nota-debito`(`ID`) on delete cascade,
+    foreign key (`productoID`) references `producto`(`ID`) on delete cascade
+) ENGINE=INNODB;
+
+
+
+
+
 
 # ENTIDAD: COMPRAS
 create table if not exists `compra` (

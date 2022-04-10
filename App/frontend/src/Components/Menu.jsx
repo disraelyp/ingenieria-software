@@ -101,9 +101,8 @@ const Menu = () => {
   ]
 
   const CuentasProveedores = [
-    { ID: 1, Text: 'Notas de debito', Icon: <NoteIcon />, Link: '/CuentasProveedores/Notas' },
-    { ID: 2, Text: 'Cuentas por pagar', Icon: <PaidIcon />, Link: '/CuentasProveedores/Cuentas' },
-    { ID: 3, Text: 'Historial de pagos', Icon: <PointOfSaleIcon />, Link: '/CuentasProveedores/Historial' },
+    { ID: 1, Text: 'Cuentas por pagar', Icon: <PaidIcon />, Link: '/CuentasProveedores/Cuentas' },
+    { ID: 2, Text: 'Historial de pagos', Icon: <PointOfSaleIcon />, Link: '/CuentasProveedores/Historial' },
   ]
 
   const Inventario = [

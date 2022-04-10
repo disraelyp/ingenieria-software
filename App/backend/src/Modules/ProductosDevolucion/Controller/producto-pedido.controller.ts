@@ -4,7 +4,7 @@ import { ProductoDevolucionService } from '../Services/producto-devolucion.servi
 import productoPedidoModel from '../Models/producto-devolucion.model'
 
 @Controller('producto-devoluciones')
-export class ProductoPedidoController {
+export class ProductoDevolucionController {
   constructor(private productoDevolucionServices: ProductoDevolucionService) {}
 
   @Post()

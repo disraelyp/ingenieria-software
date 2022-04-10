@@ -3,6 +3,7 @@ import { PrecioEntity } from 'src/Modules/Precios/Entity/precio-entity'
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
 import { ProductoDevolucionEntity } from 'src/Modules/ProductosDevolucion/Entity/producto-devolucion.entity'
 import { ProductoCompraEntity } from 'src/Modules/ProductosCompras/Entity/producto-compra.entity'
+import { ProductoNotaDebitoEntity } from 'src/Modules/ProductosNotaDebito/Entity/producto-nota-debito.entity'
 
 @Entity('producto')
 export class ProductoEntity {
@@ -47,5 +48,8 @@ export class ProductoEntity {
 
   @OneToMany(() => ProductoCompraEntity, productoCompra => productoCompra.Producto)
     ProductosCompras: ProductoCompraEntity[]
+
+  @OneToMany(() => ProductoNotaDebitoEntity, productoCompra => productoCompra.Producto)
+    ProductosNotaDevolucion: ProductoNotaDebitoEntity[]
 
 }
