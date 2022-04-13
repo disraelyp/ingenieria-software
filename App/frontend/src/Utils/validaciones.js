@@ -159,7 +159,7 @@ export const estadoValidate = (value) => {
 
 export const conductorValidate = (value) => {
   if (value === 0) {
-    return 'Seleccione un conductor valido'
+    return 'Seleccione un valor valido'
   }
   return null
 }

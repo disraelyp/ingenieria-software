@@ -42,7 +42,7 @@ export class ProductoDevolucionService {
       CodigoBarra: producto.CodigoBarra,
       Descripcion: producto.Descripcion,
       Cantidad: productoDevolucion.Cantidad,
-      Costo: productoDevolucion.Costo,
+      Costo: productoDevolucion.Costo ? productoDevolucion.Costo : 0,
       Precio: productoDevolucion.Precio,
       Impuesto: productoDevolucion.Impuesto,
       Devolucion: productoDevolucion.Devolucion,

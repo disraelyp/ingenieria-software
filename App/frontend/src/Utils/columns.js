@@ -61,6 +61,16 @@ export const ComprasColumns = [
   { field: 'Total', headerName: 'Total', minWidth: 100, flex: 1  },
 ]
 
+export const A = [
+  { field: 'id', headerName: 'ID', width: 150 },
+  { field: 'Fecha', headerName: 'Fecha', width: 150 },
+  { field: 'Comprador', headerName: 'Comprador', minWidth: 100, flex: 1  },
+  { field: 'Estado', headerName: 'Estado', minWidth: 100, flex: 1  },
+  { field: 'Proveedor', headerName: 'Proveedor', minWidth: 50, flex: 1  },
+  { field: 'Total', headerName: 'Total', minWidth: 100, flex: 1  },
+]
+
+
 export const ProveedorColumns = [
   { field: 'id', headerName: 'ID', width: 150 },
   { field: 'Nombre', headerName: 'Nombre', minWidth: 100, flex: 1  },

@@ -6,7 +6,6 @@ import ListItemText from '@mui/material/ListItemText'
 import { Divider } from '@mui/material'
 import { logout } from './../Reducers/loginReducer'
 import storage from './../Utils/loginLocalStorage'
-
 import ExpandLess from '@mui/icons-material/ExpandLess'
 import ExpandMore from '@mui/icons-material/ExpandMore'
 import Collapse from '@mui/material/Collapse'
@@ -14,22 +13,21 @@ import LogoutIcon from '@mui/icons-material/Logout'
 import FaceIcon from '@mui/icons-material/Face'
 import BusinessIcon from '@mui/icons-material/Business'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import MenuBookIcon from '@mui/icons-material/MenuBook'
+import AddBusinessIcon from '@mui/icons-material/AddBusiness'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import InventoryIcon from '@mui/icons-material/Inventory'
 import PointOfSaleIcon from '@mui/icons-material/PointOfSale'
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet'
-import MenuBookIcon from '@mui/icons-material/MenuBook'
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong'
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout'
-import AddBusinessIcon from '@mui/icons-material/AddBusiness'
 import MoneyOffIcon from '@mui/icons-material/MoneyOff'
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney'
-import MoveToInboxIcon from '@mui/icons-material/MoveToInbox'
-import StorefrontIcon from '@mui/icons-material/Storefront'
 import { useHistory } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import PaidIcon from '@mui/icons-material/Paid'
 import NoteIcon from '@mui/icons-material/Note'
+
 
 const Item = ({ text, icon, link }) => {
 
@@ -50,6 +48,7 @@ const Item = ({ text, icon, link }) => {
 const GroupItem = ({ text, icon, data }) => {
 
   const [open, setOpen] = useState(false)
+
   const history = useHistory()
 
   return (
@@ -112,24 +111,26 @@ const Menu = () => {
   ]
 
   const Reportes = [
-    { ID: 1, Text: 'Ventas', Icon: <AddBusinessIcon /> },
-    { ID: 2, Text: 'Compras', Icon: <MoveToInboxIcon /> }
+    { ID: 1, Text: 'Ventas x Cliente', Icon: <AddBusinessIcon />, Link: '/Reportes/VentasCliente' },
+    { ID: 3, Text: 'Compras x Proveedor', Icon: <AddBusinessIcon />, Link: '/Reportes/ComprasProveedor' },
   ]
+
+
+  const user = (useSelector(state => state.user)).user.Role
 
   return (
     <List>
-      <Item text={'Inicio'} icon={ <StorefrontIcon /> }/>
       <Divider />
-      <GroupItem text={'Facturacion'} data={Facturacion} icon={ <ShoppingCartIcon /> }/>
-      <GroupItem text={'Cuentas por cobrar'} data={CuentasCliente} icon={ <PointOfSaleIcon /> }/>
+      { user !== 'Almacenista' ? <GroupItem text={'Facturacion'} data={Facturacion} icon={ <ShoppingCartIcon /> }/> : null}
+      { user !== 'Almacenista' ? <GroupItem text={'Cuentas por cobrar'} data={CuentasCliente} icon={ <PointOfSaleIcon /> }/> : null}
       <Divider />
-      <GroupItem text={'Inventario'} data={Inventario}  icon={ <InventoryIcon /> }/>
-      <GroupItem text={'Cuentas por pagar'} data={CuentasProveedores} icon={ <AccountBalanceWalletIcon /> }/>
+      { user !== 'Cajera' ? <GroupItem text={'Inventario'} data={Inventario}  icon={ <InventoryIcon /> }/> : null}
+      { user !== 'Cajera' ? <GroupItem text={'Cuentas por pagar'} data={CuentasProveedores} icon={ <AccountBalanceWalletIcon /> }/> : null}
       <Divider />
-      <GroupItem text={'Reportes'} data={Reportes}  icon={ <MenuBookIcon /> }/>
-      <Item text={'Usuarios'} icon={ <FaceIcon /> } link={'/Usuarios'}/>
-      <Item text={'Proveedores'} icon={ <BusinessIcon /> } link={'/Proveedores'}/>
-      <Item text={'Clientes'} icon={ <AccountCircleIcon /> } link={'/Clientes'}/>
+      { user === 'Administrador' ? <GroupItem text={'Reportes'} data={Reportes}  icon={ <MenuBookIcon /> }/> : null}
+      { user === 'Administrador' ? <Item text={'Usuarios'} icon={ <FaceIcon /> } link={'/Usuarios'}/> : null}
+      { user === 'Administrador' ? <Item text={'Proveedores'} icon={ <BusinessIcon /> } link={'/Proveedores'}/> : null}
+      { user === 'Administrador' ? <Item text={'Clientes'} icon={ <AccountCircleIcon /> } link={'/Clientes'}/> : null}
       <Divider />
       <ListItemButton onClick={() => handleLogout()} >
         <ListItemIcon>

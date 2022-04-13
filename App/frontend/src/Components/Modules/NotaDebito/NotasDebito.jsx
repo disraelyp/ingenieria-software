@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { ComprasColumns } from '../../../Utils/columns'
+import { A } from '../../../Utils/columns'
 import { DataGrid } from '@mui/x-data-grid'
 import { Grid } from '@mui/material'
 import Button from '../../athomic-components/Button'
@@ -28,7 +28,7 @@ const NotasDebito = () => {
       <div style={{ height: 'calc(100vh - 175px)', minHeight: '100px', width: '100%', marginTop: 10 }} >
         <DataGrid
           rows={notasDebito.map(item => ComprasAdaptarDG(item))}
-          columns={ComprasColumns}
+          columns={A}
           SelectionMode='Single'
           disableMultipleSelection
           onSelectionModelChange={(newSelectionModel) => {

@@ -56,7 +56,7 @@ const UsuarioCreate = () => {
       'Password': Password.form.value,
       'Usuario': Usuario.form.value,
       'Activo': true,
-      'Role': Role.form.label
+      'Role': roleUsuario.find(a => Role.form.value === a.value).label
     }
     const usuario = await usuarioServices.create(nuevoUsuario)
     if(usuario.data.error){
@@ -96,8 +96,8 @@ const UsuarioCreate = () => {
         </Grid>
         <Grid item xs={12} sx={itemForm()}>
           {isValidate() ?
-            <Button moreSx={inputForm()} color={'success'} text={'Crear conductor'} submit={true} />:
-            <Button moreSx={inputForm()} color={'success'} text={'Crear conductor'} onClick={() => validate()} />
+            <Button moreSx={inputForm()} color={'success'} text={'Crear usuario'} submit={true} />:
+            <Button moreSx={inputForm()} color={'success'} text={'Crear usuario'} onClick={() => validate()} />
           }
           <Button moreSx={inputForm()} onClick={() => history.push('/Usuarios')} color={'error'} text={'Salir'} />
         </Grid>

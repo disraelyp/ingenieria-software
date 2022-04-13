@@ -5,6 +5,8 @@ select * from pedido;
 select * from `historial-pago`;
 select * from `producto-pedido`;
 select * from devolucion;
+select * from proveedor;
+select * from cliente;
 select * from compra;
 select * from producto;
 select * from `producto-devolucion`;

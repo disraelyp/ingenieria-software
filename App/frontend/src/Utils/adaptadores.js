@@ -1,4 +1,14 @@
 
+export const clientesAdapterSI = (item) => {
+  return { label: item.Nombre + ' (CEDULA: ' + item.Cedula + ')', value: item.ID }
+}
+
+export const proveedoresAdapterSI = (item) => {
+
+  return { label: item.Nombre + ' (RND: ' + item.RNC + ')', value: item.ID }
+}
+
+
 export const UsuariosAdaptarDG = (item) => {
   return { 'id': item.ID, 'Nombre': item.Nombre, 'Usuario': item.Usuario, 'Role': item.Role }
 }

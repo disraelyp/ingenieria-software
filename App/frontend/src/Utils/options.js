@@ -32,6 +32,7 @@ export const categoriaProducto = [
   { label: 'Pastas', value: 6 },
   { label: 'Bebidas Alcoholicas', value: 7 },
   { label: 'Bebidas no Alcoholicas', value: 8 },
+  { label: 'Sin categoria', value: 9 },
 ]
 
 export const  MenuOptionsUsuarios =  [

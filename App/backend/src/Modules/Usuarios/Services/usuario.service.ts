@@ -33,7 +33,7 @@ export class UsuarioService {
     if(!usuario.Role) {
       return { message: 'Ingrese el role del usuario', error: 401 }
     }
-    if(![RolesEnum.Cajera, RolesEnum.Administrador, RolesEnum.Cajera].includes(usuario.Role)){
+    if(![RolesEnum.Cajera, RolesEnum.Administrador, RolesEnum.Almacenista].includes(usuario.Role)){
       return { message: 'Ingrese un role de usuario valido', error: 401 }
     }
 

@@ -1,5 +1,5 @@
 
-const reducer = (state = 'Viajes', action) => {
+const reducer = (state = 'Facturacion', action) => {
   switch (action.type) {
   case 'UPDATE_TITULO':
     return action.data
