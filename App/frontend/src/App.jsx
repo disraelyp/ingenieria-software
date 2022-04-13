@@ -13,7 +13,6 @@ import MenuIcon from '@mui/icons-material/Menu'
 import Menu from './Components/Menu'
 import NotificacionPanel from './Components/Utils/NotificationPanel'
 import LoginForm from './Components/Utils/LoginForm'
-import { useHistory } from 'react-router-dom'
 import { Cliente, Clientes, ClienteCreate, ClienteUpdate } from './Components/Modules/Clientes'
 import { Producto, Productos, ProductoCreate, ProductoUpdate } from './Components/Modules/Productos'
 import { Proveedor, Proveedores, ProveedorCreate, ProveedorUpdate } from './Components/Modules/Proveedores'
@@ -32,14 +31,12 @@ import { initializeNotaDebito } from './Reducers/notaDebitoReducer'
 import CuentasCobrar from './Components/Modules/CuentasCobrar/CuentasCobrar'
 import CuentasPagar from './Components/Modules/CuentasPagar/CuentasPagar'
 import HistorialCobros from './Components/Modules/HistoralCobros/HistorialCobros'
-ComprasProveedor
 import VentasCliente from './Components/Modules/Reportes/VentasCliente'
 import ComprasProveedor from './Components/Modules/Reportes/ComprasProveedor'
 
 const App = (props) => {
 
   const dispatch = useDispatch()
-  const history = useHistory()
   const user = useSelector(state => state.user)
   const notificaciones = useSelector(state => state.notificaciones)
   const titulo = useSelector(state => state.titulo)
@@ -103,7 +100,7 @@ const App = (props) => {
           <Toolbar />
           <Switch>
             <Route exact path='/'>
-              { history.push('/Facturacion/Pedidos') }
+              <Clientes />
             </Route>
             <Route exact path='/Clientes'>
               <Clientes />
